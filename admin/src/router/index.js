@@ -8,7 +8,14 @@ const routes = [
   {
     path: '/',
     name: 'main',
-    component: Main
+    component: Main,
+    children: [
+      {
+        path: 'categories/create',
+        name: '新建分类',
+        component: () => import(/* webpackChunkName: "about" */ '../views/category/CategoryEdit.vue')
+      },
+    ]
   },
 ]
 

@@ -5,7 +5,7 @@
 
 ### 1.项目介绍
 
-### 2.工具安装和环境搭建(nodejs,npm,mongodb)
+### 2.工具安装和环境搭建(nodejs,npm,VUE CLI,mongodb,nodemon)
 
 - 安装nodejs 
 
@@ -53,19 +53,100 @@
       $ npm config set registry https://registry.npmjs.org
       ```
 
+- 安装VUE CLI
+
+  ```sh
+  $ npm install -g @vue/cli
+  ```
+
 - 安装mongodb
 
   - 下载地址https://www.mongodb.com/try/download/community 下载最新版
 
+- 安装nodemon
+
+  ```sh
+  $ npm i -g nodemon
+  ```
+
 - vscode 安装
 
 ### 3.初始化项目
+
+- 新建server文件夹
+
+  >表示服务端项目，nodejs 所有的东西，包括给后台管理admin界面和前台web界面提供接口
+  
+  ```sh
+  $ mkdir server
+  ```
+  
+- 创建web端的项目
+
+  ```sh
+  $ vue create web
+  ```
+
+  >选择 默认 安装
+
+- 创建后台管理界面项目
+
+  ```sh
+  $ vue create admin
+  ```
+
+  > 选择 默认 安装
+
+- 初始化后台的服务端 server
+
+  - 进入server 文件夹
+
+    ```sh
+    $ cd server
+    ```
+
+  - 初始化 node 项目
+
+    > 会生成 package.json
+
+    ```sh
+    $ npm init -y
+    ```
+  
+  - 新建入口文件 index.js
+  
+  - 自定义脚本运行文件
+  
+    > 在package.json 里面 的 scripts中新建
+  
+    ```json
+    "scripts": {
+      "serve": "nodemon index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    ```
 
 ----------
 
 ## 二、管理后台
 
 ### 1.基于Element UI后台管理基础界面搭建
+
+- 进入到后台admin文件夹
+
+  ```sh
+  $ cd admin
+  ```
+
+- 安装 Element UI 的插件
+
+  ```sh
+  $ vue add element
+  ```
+
+  >安装 提示全按 回车 即可
+
+- 
 
 ### 2.创建分类(多层级)
 

@@ -27,5 +27,13 @@ module.exports = (app, express) => {
     res.send(model)
   })
 
+  router.delete('/categories/:id', async (req, res) => {
+    // 列表删除
+    await Category.findByIdAndRemove(req.params.id)
+    res.send({
+      Status: 200,
+    })
+  })
+
   app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
 }

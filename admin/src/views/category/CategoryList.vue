@@ -8,8 +8,11 @@
         <!-- <template slot-scope="scope"> -->
         <!-- slot-scope 已被vue3 废弃,使用 v-slot 代替 -->
         <template v-slot="scope">
-          <el-button @click="handleClick(scope.row)" type="primary" size="small"
+          <el-button @click="edit(scope.row._id)" type="primary" size="small"
             >编辑</el-button
+          >
+          <el-button @click="remove(scope.row._id)" type="primary" size="small"
+            >删除</el-button
           >
         </template>
       </el-table-column>
@@ -33,10 +36,18 @@ export default {
       const res = await this.$http.get('/categories')
       this.items = res.data
     },
-    handleClick (row) {
+    edit (id) {
       // 记得加 / ,否则不是在根路径上
-      this.$router.push(`/categories/edit/${row._id}`)
-    }
+      this.$router.push(`/categories/edit/${id}`)
+    },
+    async remove (id) {
+      await this.$http.delete(`/categories/${id}`)
+      this.$message({
+        type: 'success',
+        message: '删除成功！'
+      })
+      this.fetch()
+    },
   },
   components: {
 

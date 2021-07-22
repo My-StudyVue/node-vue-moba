@@ -24,8 +24,15 @@ export default {
 
   },
   methods: {
-    save () {
-      // this.$http.post()
+    async save () {
+      // this.$http.post('categories', this.model).then()
+      await this.$http.post('categories', this.model)
+      // 跳转到分页列表
+      this.$router.push('/categories/list')
+      this.$message({
+        type: 'success',
+        message: '保存成功！'
+      })
     }
   }
 }

@@ -11,7 +11,7 @@
           <el-button @click="edit(scope.row._id)" type="primary" size="small"
             >编辑</el-button
           >
-          <el-button @click="remove(scope.row._id)" type="primary" size="small"
+          <el-button @click="remove(scope.row)" type="primary" size="small"
             >删除</el-button
           >
         </template>
@@ -40,13 +40,19 @@ export default {
       // 记得加 / ,否则不是在根路径上
       this.$router.push(`/categories/edit/${id}`)
     },
-    async remove (id) {
-      await this.$http.delete(`/categories/${id}`)
-      this.$message({
-        type: 'success',
-        message: '删除成功！'
+    remove (row) {
+      this.$confirm(`是否确定要删除此分类 "${row.name}"`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        await this.$http.delete(`/categories/${row._id}`)
+        this.$message({
+          type: 'success',
+          message: '删除成功！'
+        })
+        this.fetch()
       })
-      this.fetch()
     },
   },
   components: {

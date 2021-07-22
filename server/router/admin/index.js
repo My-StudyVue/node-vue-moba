@@ -10,8 +10,21 @@ module.exports = (app, express) => {
   })
 
   router.get('/categories', async (req, res) => {
+    // 显示新增列表
     const items = await Category.find().limit(10)
     res.send(items)
+  })
+
+  router.get('/categories/:id', async (req, res) => {
+    // 列表详情
+    const model = await Category.findById(req.params.id)
+    res.send(model)
+  })
+
+  router.put('/categories/:id', async (req, res) => {
+    // 列表更新/修改
+    const model = await Category.findByIdAndUpdate(req.params.id, req.body)
+    res.send(model)
   })
 
   app.use('/admin/api/', router) //匹配 /admin/api 开头的路由

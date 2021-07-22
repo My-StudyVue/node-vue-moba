@@ -9,5 +9,10 @@ module.exports = (app, express) => {
     res.send(model)
   })
 
+  router.get('/categories', async (req, res) => {
+    const items = await Category.find().limit(10)
+    res.send(items)
+  })
+
   app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
 }

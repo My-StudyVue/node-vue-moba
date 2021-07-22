@@ -15,6 +15,11 @@ const routes = [
         name: '新建分类',
         component: () => import(/* webpackChunkName: "about" */ '../views/category/CategoryEdit.vue')
       },
+      {
+        path: 'categories/list',
+        name: '分类列表',
+        component: () => import(/* webpackChunkName: "about" */ '../views/category/CategoryList.vue')
+      },
     ]
   },
 ]

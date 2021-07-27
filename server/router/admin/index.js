@@ -11,7 +11,12 @@ module.exports = (app, express) => {
 
   router.get('/categories', async (req, res) => {
     // 显示新增列表
-    const items = await Category.find().limit(10)
+    // const items = await Category.find().limit(10)
+    const items = await Category.find().populate('parent').limit(10)
+    /**
+     * populate 表示关联字段 取出/查出
+     * 把 那个关联字段的 相关数据 展示出来
+     */
     res.send(items)
   })
 

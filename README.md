@@ -195,7 +195,106 @@
 >
 >只不过用一个 字段 表示 其对应关系，从而形成一个链式结构，就可实现无线层级的分类
 
-### 7.通用CRUD接口
+- 服务端
+
+  - 在 models（创建的模型）下新增`parent` 字段
+
+    - ~~普通写法-----> 错误~~
+
+      ```js
+      parent: { type: String },
+      ```
+
+    - 正确写法
+
+      >/**
+      >
+      >  \* parent: { type: String },
+      >
+      >  \* 
+      >
+      >  \* 这里一定不是 String 类型，一定是特殊类型
+      >
+      >  \* 
+      >
+      >  \* ref 表示关联的模型
+      >
+      >  */
+
+      ```js
+      parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
+      ```
+
+  - 在 router (路由)下更改`新增列表`接口
+
+    ~~const items = await Category.find().limit(10)~~
+
+    ```js
+      router.get('/categories', async (req, res) => {
+        // 显示新增列表
+        // const items = await Category.find().limit(10)
+        const items = await Category.find().populate('parent').limit(10)
+        /**
+         * populate 表示关联字段 取出/查出
+         * 把 那个关联字段的 相关数据 展示出来
+         */
+        res.send(items)
+      })
+    ```
+
+### 7.通用CRUD接口(服务端)
+
+>CRUD 是crate(增)、read(查)、update(改)、delete(删)的缩写
+>
+>简而言之 就是增删改查的一个公用写法接口抽离出来
+
+- 更改成动态路由
+
+  ~~app.use('/admin/api/', router)~~
+
+  ```js
+  // app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
+  app.use('/admin/api/rest/:resource', router) //通用接口
+  ```
+
+  >记得在客户端调取接口的时候 + /rest
+
+- 转类名的包
+
+  >专门用来处理  单复数的转换、下划线、单词的格式转换
+
+  ```sh
+  $ npm i inflection
+  ```
+
+  - 使用
+
+    ```js
+    require('inflection').classify(req.params.resource)
+    ```
+
+- app.use 中添加中间键
+
+  ```js
+  app.use('/admin/api/rest/:resource', async (req, res, next) => {
+    const modelName = require('inflection').classify(req.params.resource)
+    req.Mondel = require(`../../models/${modelName}`)
+  
+    next()
+  }, router) //通用接口
+  ```
+
+- 修改 关联字段
+
+  ~~const items = await req.Mondel.find().populate('parent').limit(10)~~
+
+  ```js
+  const queryOptions = {}
+  if (req.Mondel.modelName === 'Category') {
+    queryOptions.populate = 'parent'
+  }
+  const items = await req.Mondel.find().populate(queryOptions).limit(10)
+  ```
 
 ### 8.装备管理
 

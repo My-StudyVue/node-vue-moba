@@ -13,6 +13,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.0.0-alpha.8",
+    "inflection": "^1.13.1",
     "mongoose": "^5.13.3"
   }
 }

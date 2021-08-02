@@ -300,6 +300,44 @@
 
 ### 9.图片上传和文件管理
 
+- 封装的axios取baseURL
+
+  ```js
+  $http.defaults.baseUrl
+  ```
+
+- 处理上传文件的包
+
+  ```sh
+  $ npm i multer
+  ```
+
+  - 使用
+
+    ```js
+    const multer = require('multer')
+    // 上传中间键
+    const upload = multer({
+      /**
+       * dest 目标地址在哪里 
+       * 
+       * __dirname 绝对地址 （必须加）
+       * 
+       * upload.single() 表示单个文件的上传
+       * 
+       * file 表示 传入的参数字段（Form Data 里的）
+       */
+      dest: __dirname + '/../../uploads'
+    })
+    // 有了上传中间键req 上才会有file
+    app.post('/upload', upload.single('file'), async (req, res) => {
+      const file = req.file
+      res.send(file)
+    }) // 上传文件接口，不使用路由
+    ```
+
+    
+
 ### 10.英雄管理
 
 ### 11.编辑英雄

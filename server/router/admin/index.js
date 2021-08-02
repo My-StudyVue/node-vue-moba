@@ -77,4 +77,26 @@ module.exports = (app, express) => {
 
     next()
   }, router) //通用接口
+
+
+  const multer = require('multer')
+  // 上传中间键
+  const upload = multer({
+    /**
+     * dest 目标地址在哪里 
+     * 
+     * __dirname 绝对地址 （必须加）
+     * 
+     * upload.single() 表示单个文件的上传
+     * 
+     * file 表示 传入的参数字段（Form Data 里的）
+     * 
+     */
+    dest: __dirname + '/../../uploads'
+  })
+  // 有了上传中间键req 上才会有file
+  app.post('/admin/api/rest/upload', upload.single('file'), async (req, res) => {
+    const file = req.file
+    res.send(file)
+  }) // 上传文件接口，不使用路由
 }

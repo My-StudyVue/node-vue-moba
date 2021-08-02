@@ -293,7 +293,7 @@
   if (req.Mondel.modelName === 'Category') {
     queryOptions.populate = 'parent'
   }
-  const items = await req.Mondel.find().populate(queryOptions).limit(10)
+  const items = await req.Mondel.find().setOptions(queryOptions).limit(10)
   ```
 
 ### 8.装备管理

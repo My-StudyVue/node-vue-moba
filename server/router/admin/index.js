@@ -32,7 +32,7 @@ module.exports = (app, express) => {
     if (req.Mondel.modelName === 'Category') {
       queryOptions.populate = 'parent'
     }
-    const items = await req.Mondel.find().populate(queryOptions).limit(10)
+    const items = await req.Mondel.find().setOptions(queryOptions).limit(10)
 
     /**
      * populate 表示关联字段 取出/查出

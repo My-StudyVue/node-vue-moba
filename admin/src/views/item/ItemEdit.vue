@@ -42,20 +42,20 @@ export default {
   methods: {
     async save () {
       if (this.id) {
-        await this.$http.put(`items/${this.id}`, this.model)
+        await this.$http.put(`rest/items/${this.id}`, this.model)
       } else {
-        await this.$http.post('items', this.model)
+        await this.$http.post('rest/items', this.model)
       }
 
       // 跳转到分页列表
-      this.$router.push('/items/list')
+      this.$router.push('/rest/items/list')
       this.$message({
         type: 'success',
         message: '保存成功！'
       })
     },
     async fetch () {
-      const res = await this.$http.get(`items/${this.id}`)
+      const res = await this.$http.get(`rest/items/${this.id}`)
       this.model = res.data
     },
     afterUpload (res) {

@@ -33,12 +33,12 @@ export default {
   },
   methods: {
     async fetch () {
-      const res = await this.$http.get('/items')
+      const res = await this.$http.get('/rest/items')
       this.items = res.data
     },
     edit (id) {
       // 记得加 / ,否则不是在根路径上
-      this.$router.push(`/items/edit/${id}`)
+      this.$router.push(`/rest/items/edit/${id}`)
     },
     remove (row) {
       this.$confirm(`是否确定要删除此分类 "${row.name}"`, '提示', {
@@ -46,7 +46,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        await this.$http.delete(`/items/${row._id}`)
+        await this.$http.delete(`/rest/items/${row._id}`)
         this.$message({
           type: 'success',
           message: '删除成功！'

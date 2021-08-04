@@ -39,7 +39,7 @@ export default {
     },
     edit (id) {
       // 记得加 / ,否则不是在根路径上
-      this.$router.push(`/rest/categories/edit/${id}`)
+      this.$router.push(`/categories/edit/${id}`)
     },
     remove (row) {
       this.$confirm(`是否确定要删除此分类 "${row.name}"`, '提示', {

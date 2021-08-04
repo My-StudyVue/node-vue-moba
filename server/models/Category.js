@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
-  name: { type: String },
+  name: { type: String, unique: true },
   /**
    * parent: { type: String },
    * 
@@ -9,7 +9,7 @@ const schema = new mongoose.Schema({
    * 
    * ref 表示关联的模型
    */
-  parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
+  parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category', unique: true },
 })
 
 module.exports = mongoose.model('Category', schema)

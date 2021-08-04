@@ -51,7 +51,7 @@ export default {
       }
 
       // 跳转到分页列表
-      this.$router.push('/rest/categories/list')
+      this.$router.push('/categories/list')
       this.$message({
         type: 'success',
         message: '保存成功！'

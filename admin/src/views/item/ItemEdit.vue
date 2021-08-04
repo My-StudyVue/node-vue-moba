@@ -60,7 +60,14 @@ export default {
     },
     afterUpload (res) {
       // res 表示服务端的响应数据
-      console.log(res);
+      // this.model.icon = res.url
+      /**
+       * 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
+       * 
+       * this.$set(target, key, value) 方法 -----> 响应式对象
+       * 要更改的数据源(可以是对象或者数组)，要更改的具体数据，重新赋的值
+       */
+      this.$set(this.model, 'icon', res.url)
     }
   },
   components: {

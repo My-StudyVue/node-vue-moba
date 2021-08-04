@@ -4,6 +4,13 @@
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="name" label="物品名称"> </el-table-column>
+      <el-table-column prop="icon" label="图标">
+        <!-- 默认显示路径 需要自定义显示图标 -->
+        <template slot-scope="scope">
+          <img :src="scope.row.icon" alt="" style="height: 3rem" />
+        </template>
+      </el-table-column>
+
       <el-table-column fixed="right" label="操作" width="180">
         <!-- <template slot-scope="scope"> -->
         <!-- slot-scope 已被vue3 废弃,使用 v-slot 代替 -->

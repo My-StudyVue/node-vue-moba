@@ -8,6 +8,11 @@ app.use(express.json())
 // 跨域
 app.use(require('cors')())
 
+/**
+ * 静态文件托管 express.static
+ */
+app.use('/uploads', express.static(__dirname + '/uploads'))
+
 // 配置路由
 require('./router/admin')(app, express)
 

@@ -97,6 +97,10 @@ module.exports = (app, express) => {
   // 有了上传中间键req 上才会有file
   app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
     const file = req.file
+    /**
+     * 需要定义静态路由来访问静态文件进行文件托管
+     */
+    file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
   }) // 上传文件接口，不使用路由
 }

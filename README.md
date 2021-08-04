@@ -7,124 +7,148 @@
 
 ### 2.工具安装和环境搭建(nodejs,npm,VUE CLI,mongodb,nodemon)
 
-- 安装nodejs 
+#### 安装git
 
-  - 官网 http://nodejs.cn/ 下载最新版
+- 官网 https://git-scm.com/downloads 下载最新版
 
-- npm 的淘宝镜像
+##### 设置proxy（代理）
 
-  - 查看原本镜像
+###### 设置当前代理
+```sh
+$ git config http.proxy http://127.0.0.1:2334
+```
 
-    ```sh
-    $ npm config registry //https://registry.npmjs.org
-    ```
+###### 取消当前代理
+```sh
+$ git config --unset http.proxy
+```
 
-  - 设置成淘宝镜像
+###### 取消全局代理
+```sh
+$ git config --global --unset http.proxy
+```
 
-    - 临时
+###### 设置socks5代理
+```sh
+$ git config http.proxy socks5://127.0.0.1:10809
+```
 
-      ```sh
-      $ npm --registry https://registry.npm.taobao.org
-      ```
+#### 安装nodejs 
 
-    - 永久
+- 官网 http://nodejs.cn/ 下载最新版
 
-      ```sh
-      $ npm config set registry https://registry.npm.taobao.org
-      ```
+##### npm 的淘宝镜像
 
-      
+###### 查看原本镜像
 
-    - 配置后验证是否成功
+```sh
+$ npm config registry //https://registry.npmjs.org
+```
 
-      ```sh
-      $ npm config get registry
-      ```
+###### 设置成淘宝镜像
 
-      或
-
-      ```sh
-      $ npm info
-      ```
-
-    - 恢复npm原镜像
-
-      ```sh
-      $ npm config set registry https://registry.npmjs.org
-      ```
-
-- 安装VUE CLI
+- 临时
 
   ```sh
-  $ npm install -g @vue/cli
+  $ npm --registry https://registry.npm.taobao.org
   ```
 
-- 安装mongodb
-
-  - 下载地址https://www.mongodb.com/try/download/community 下载最新版
-
-- 安装nodemon
+- 永久
 
   ```sh
-  $ npm i -g nodemon
+  $ npm config set registry https://registry.npm.taobao.org
   ```
 
-- vscode 安装
+- 配置后验证是否成功
+
+  ```sh
+  $ npm config get registry
+  ```
+
+  或
+
+  ```sh
+  $ npm info
+  ```
+
+- 恢复npm原镜像
+
+  ```sh
+  $ npm config set registry https://registry.npmjs.org
+  ```
+
+#### 安装VUE CLI
+
+```sh
+$ npm install -g @vue/cli
+```
+
+#### 安装mongodb
+
+- 下载地址https://www.mongodb.com/try/download/community 下载最新版
+
+#### 安装nodemon
+
+```sh
+$ npm i -g nodemon
+```
+
+#### vscode 安装
 
 ### 3.初始化项目
 
-- 新建server文件夹
+#### 新建server文件夹
 
-  >表示服务端项目，nodejs 所有的东西，包括给后台管理admin界面和前台web界面提供接口
-  
-  ```sh
-  $ mkdir server
+>表示服务端项目，nodejs 所有的东西，包括给后台管理admin界面和前台web界面提供接口
+
+```sh
+$ mkdir server
+```
+
+#### 创建web端的项目
+
+```sh
+$ vue create web
+```
+
+>选择 默认 安装
+
+#### 创建后台管理界面项目
+
+```sh
+$ vue create admin
+```
+
+> 选择 默认 安装
+
+##### 初始化后台的服务端 server
+
+###### 进入server 文件夹
+
+```sh
+$ cd server
+```
+
+###### 初始化 node 项目
+
+> 会生成 package.json
+
+```sh
+$ npm init -y
+```
+
+###### 新建入口文件 index.js
+
+- 自定义脚本运行文件
+
+  > 在package.json 里面 的 scripts中新建
+
+  ```json
+  "scripts": {
+    "serve": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   ```
-  
-- 创建web端的项目
-
-  ```sh
-  $ vue create web
-  ```
-
-  >选择 默认 安装
-
-- 创建后台管理界面项目
-
-  ```sh
-  $ vue create admin
-  ```
-
-  > 选择 默认 安装
-
-- 初始化后台的服务端 server
-
-  - 进入server 文件夹
-
-    ```sh
-    $ cd server
-    ```
-
-  - 初始化 node 项目
-
-    > 会生成 package.json
-
-    ```sh
-    $ npm init -y
-    ```
-  
-  - 新建入口文件 index.js
-  
-  - 自定义脚本运行文件
-  
-    > 在package.json 里面 的 scripts中新建
-  
-    ```json
-    "scripts": {
-      "serve": "nodemon index.js",
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    ```
 
 ----------
 
@@ -132,56 +156,57 @@
 
 ### 1.基于Element UI后台管理基础界面搭建
 
-- 进入到后台admin文件夹
+#### 进入到后台admin文件夹
 
-  ```sh
-  $ cd admin
-  ```
+```sh
+$ cd admin
+```
 
-- 安装 Element UI 的插件
+#### 安装 Element UI 的插件
 
-  ```sh
-  $ vue add element
-  ```
+```sh
+$ vue add element
+```
 
-  >安装 提示全按 回车 即可
+>安装 提示全按 回车 即可
 
-- 安装路由
+#### 安装路由
 
-  ```sh
-  $ vue add router
-  ```
+```sh
+$ vue add router
+```
 
-  >这里没有使用 history 的路由方式
+>这里没有使用 history 的路由方式
 
-- 创建首页 以及 配置路由
+#### 创建首页 以及 配置路由
 
 ### 2.创建分类(多层级)
 
-- 客户端
+#### 客户端
 
-  - 提交数据需安装 axios 
+##### 提交数据需安装 axios 
 
-    ```sh
-    $ npm i axios
-    ```
+```sh
+$ npm i axios
+```
 
-  - 使用 axios 
+##### 使用 axios 
 
-    - 创建文件引用
-    - 在main.js 中加入到原型中，在整个项目中用this来进行使用
+###### 创建文件引用
 
-- 服务端
+###### 在main.js 中加入到原型中，在整个项目中用this来进行使用
 
-  - 安装express下一版本，mongoose,cors,
+#### 服务端
 
-    ```sh
-    $ npm i express@next mongoose cors
-    ```
+##### 安装express下一版本，mongoose,cors,
 
-    >这里express安装下一版本5.0 
-    >
-    >因为后面用 http-assert 必须要求 5.0，否则不支持async的异常处理
+```sh
+$ npm i express@next mongoose cors
+```
+
+>这里express安装下一版本5.0 
+>
+>因为后面用 http-assert 必须要求 5.0，否则不支持async的异常处理
 
 ### 3.分类列表
 
@@ -195,52 +220,52 @@
 >
 >只不过用一个 字段 表示 其对应关系，从而形成一个链式结构，就可实现无线层级的分类
 
-- 服务端
+#### 服务端
 
-  - 在 models（创建的模型）下新增`parent` 字段
+##### 在 models（创建的模型）下新增`parent` 字段
 
-    - ~~普通写法-----> 错误~~
+###### ~~普通写法-----> 错误~~
 
-      ```js
-      parent: { type: String },
-      ```
+```js
+parent: { type: String },
+```
 
-    - 正确写法
+###### 正确写法
 
-      >/**
-      >
-      >  \* parent: { type: String },
-      >
-      >  \* 
-      >
-      >  \* 这里一定不是 String 类型，一定是特殊类型
-      >
-      >  \* 
-      >
-      >  \* ref 表示关联的模型
-      >
-      >  */
+>/**
+>
+>  \* parent: { type: String },
+>
+>  \* 
+>
+>  \* 这里一定不是 String 类型，一定是特殊类型
+>
+>  \* 
+>
+>  \* ref 表示关联的模型
+>
+>  */
 
-      ```js
-      parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
-      ```
+```js
+parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
+```
 
-  - 在 router (路由)下更改`新增列表`接口
+- 在 router (路由)下更改`新增列表`接口
 
-    ~~const items = await Category.find().limit(10)~~
+  ~~const items = await Category.find().limit(10)~~
 
-    ```js
-      router.get('/categories', async (req, res) => {
-        // 显示新增列表
-        // const items = await Category.find().limit(10)
-        const items = await Category.find().populate('parent').limit(10)
-        /**
-         * populate 表示关联字段 取出/查出
-         * 把 那个关联字段的 相关数据 展示出来
-         */
-        res.send(items)
-      })
-    ```
+  ```js
+    router.get('/categories', async (req, res) => {
+      // 显示新增列表
+      // const items = await Category.find().limit(10)
+      const items = await Category.find().populate('parent').limit(10)
+      /**
+       * populate 表示关联字段 取出/查出
+       * 把 那个关联字段的 相关数据 展示出来
+       */
+      res.send(items)
+    })
+  ```
 
 ### 7.通用CRUD接口(服务端)
 
@@ -248,95 +273,150 @@
 >
 >简而言之 就是增删改查的一个公用写法接口抽离出来
 
-- 更改成动态路由
+#### 更改成动态路由
 
-  ~~app.use('/admin/api/', router)~~
+~~app.use('/admin/api/', router)~~
 
-  ```js
-  // app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
-  app.use('/admin/api/rest/:resource', router) //通用接口
-  ```
+```js
+// app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
+app.use('/admin/api/rest/:resource', router) //通用接口
+```
 
-  >记得在客户端调取接口的时候 + /rest
+>记得在客户端调取接口的时候 + /rest
 
-- 转类名的包
+#### 转类名的包
 
-  >专门用来处理  单复数的转换、下划线、单词的格式转换
+>专门用来处理  单复数的转换、下划线、单词的格式转换
 
-  ```sh
-  $ npm i inflection
-  ```
+```sh
+$ npm i inflection
+```
 
-  - 使用
+##### 使用
 
-    ```js
-    require('inflection').classify(req.params.resource)
-    ```
+```js
+require('inflection').classify(req.params.resource)
+```
 
-- app.use 中添加中间键
+####  app.use 中添加中间键
 
-  ```js
-  app.use('/admin/api/rest/:resource', async (req, res, next) => {
-    const modelName = require('inflection').classify(req.params.resource)
-    req.Mondel = require(`../../models/${modelName}`)
-  
-    next()
-  }, router) //通用接口
-  ```
+```js
+app.use('/admin/api/rest/:resource', async (req, res, next) => {
+  const modelName = require('inflection').classify(req.params.resource)
+  req.Mondel = require(`../../models/${modelName}`)
 
-- 修改 关联字段
+  next()
+}, router) //通用接口
+```
 
-  ~~const items = await req.Mondel.find().populate('parent').limit(10)~~
+#### 修改 关联字段
 
-  ```js
-  const queryOptions = {}
-  if (req.Mondel.modelName === 'Category') {
-    queryOptions.populate = 'parent'
-  }
-  const items = await req.Mondel.find().setOptions(queryOptions).limit(10)
-  ```
+~~const items = await req.Mondel.find().populate('parent').limit(10)~~
+
+```js
+const queryOptions = {}
+if (req.Mondel.modelName === 'Category') {
+  queryOptions.populate = 'parent'
+}
+const items = await req.Mondel.find().setOptions(queryOptions).limit(10)
+```
 
 ### 8.装备管理
 
-### 9.图片上传和文件管理
+### 9.图片上传（multer）和文件管理
 
-- 封装的axios取baseURL
+#### 封装的axios取baseURL
 
-  ```js
-  $http.defaults.baseUrl
+```js
+$http.defaults.baseUrl
+```
+
+#### 处理上传文件的包
+
+```sh
+$ npm i multer
+```
+
+##### 使用
+
+```js
+const multer = require('multer')
+// 上传中间键
+const upload = multer({
+  /**
+   * dest 目标地址在哪里 
+   * 
+   * __dirname 绝对地址 （必须加）
+   * 
+   * upload.single() 表示单个文件的上传
+   * 
+   * file 表示 传入的参数字段（Form Data 里的）
+   */
+  dest: __dirname + '/../../uploads'
+})
+// 有了上传中间键req 上才会有file
+app.post('/upload', upload.single('file'), async (req, res) => {
+  const file = req.file
+  res.send(file)
+}) // 上传文件接口，不使用路由
+```
+
+#### 静态文件管理
+
+##### 服务端
+
+###### index.js
+
+```js
+/**
+ * 静态文件托管 express.static
+ */
+app.use('/uploads', express.static(__dirname + '/uploads'))
+```
+
+###### router\admin\index.js
+
+```js
+// 有了上传中间键req 上才会有file
+app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+  const file = req.file
+  /**
+   * 需要定义静态路由来访问静态文件进行文件托管
+   */
+  file.url = `http://localhost:3000/uploads/${file.filename}`
+  res.send(file)
+}) // 上传文件接口，不使用路由
+```
+
+##### 客户端
+
+###### src/views/item/itemEdit.Vue
+
+- ~~普通写法~~
+
+  ```vue
+  this.model.icon = res.url
   ```
 
-- 处理上传文件的包
+- 正确写法
 
-  ```sh
-  $ npm i multer
+  >   /**
+  >
+  >​    \* 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
+  >
+  >​    \* 
+  >
+  >​    \* this.$set(target, key, value) 方法 -----> 响应式对象
+  >
+  >​    \* 要更改的数据源(可以是对象或者数组)，要更改的具体数据，重新赋的值
+  >
+  >​    */
+
+  ```
+  
   ```
 
-  - 使用
-
-    ```js
-    const multer = require('multer')
-    // 上传中间键
-    const upload = multer({
-      /**
-       * dest 目标地址在哪里 
-       * 
-       * __dirname 绝对地址 （必须加）
-       * 
-       * upload.single() 表示单个文件的上传
-       * 
-       * file 表示 传入的参数字段（Form Data 里的）
-       */
-      dest: __dirname + '/../../uploads'
-    })
-    // 有了上传中间键req 上才会有file
-    app.post('/upload', upload.single('file'), async (req, res) => {
-      const file = req.file
-      res.send(file)
-    }) // 上传文件接口，不使用路由
-    ```
-
-    
+  
 
 ### 10.英雄管理
 

@@ -412,15 +412,32 @@ app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
   >
   >​    */
 
-  ```
-  
+  ```js
+  this.$set(this.model, 'icon', res.url)
   ```
 
-  
 
 ### 10.英雄管理
 
 ### 11.编辑英雄
+
+#### 浅拷贝和深拷贝
+
+- ##### 简单点来说，就是假设B复制了A，当修改A时，看B是否会发生变化，如果B也跟着变了，说明这是浅拷贝，拿人手短，如果B没变，那就是深拷贝，自食其力。
+
+  >   /**
+  >
+  >​    \* 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+  >
+  >​    \* Object.assign(target, source1,source2)
+  >
+  >​    \* 第一个参数是目标对象，后面的参数都是源对象
+  >
+  >​    */
+
+  ```js
+  this.model = Object.assign({}, this.model, res.data)
+  ```
 
 ### 12.装备的多选
 

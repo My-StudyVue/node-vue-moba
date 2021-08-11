@@ -4,6 +4,8 @@
     <el-table :data="heroes">
       <el-table-column prop="_id" label="ID" width="230"> </el-table-column>
       <el-table-column prop="name" label="英雄名称"> </el-table-column>
+      <el-table-column prop="title" label="英雄称号"> </el-table-column>
+      <el-table-column prop="categories" label="英雄分类"> </el-table-column>
       <el-table-column prop="avatar" label="头像">
         <!-- 默认显示路径 需要自定义显示头像 -->
         <template slot-scope="scope">

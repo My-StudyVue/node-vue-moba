@@ -3,7 +3,11 @@
     <h1>{{ id ? '编辑' : '新建' }}分类</h1>
     <el-form label-width="120px" :inline="true" @submit.native.prevent="save">
       <el-form-item label="上级分类">
-        <el-select v-model="model.parent" clearable>
+        <el-select
+          v-model="model.parent"
+          clearable
+          placeholder="请选择上级分类"
+        >
           <el-option
             v-for="item in parents"
             :key="item._id"

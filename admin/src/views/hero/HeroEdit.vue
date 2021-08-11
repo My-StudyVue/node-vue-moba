@@ -150,10 +150,11 @@
           >
           <el-row type="flex" style="flex-wrap: wrap">
             <el-col :md="12" v-for="(item, index) in model.skills" :key="index">
-              <el-card class="box-card" style="">
+              <el-card class="box-card">
                 <el-form-item label="名称">
                   <el-input v-model="item.name"></el-input>
                 </el-form-item>
+
                 <el-form-item label="图标">
                   <el-upload
                     class="avatar-uploader"
@@ -165,14 +166,25 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
                 </el-form-item>
+
                 <el-form-item label="描述">
                   <el-input
                     v-model="item.description"
                     type="textarea"
                   ></el-input>
                 </el-form-item>
+
                 <el-form-item label="小提示">
                   <el-input v-model="item.tips" type="textarea"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                  <el-button
+                    size="small"
+                    type="danger"
+                    @click="model.skills.splice(index, 1)"
+                    >删除</el-button
+                  >
                 </el-form-item>
               </el-card>
             </el-col>

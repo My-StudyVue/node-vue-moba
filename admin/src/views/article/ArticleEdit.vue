@@ -23,7 +23,7 @@
       </el-form-item>
 
       <el-form-item label="详情">
-        <el-input v-model="model.body" type="textarea"></el-input>
+        <vue-editor v-model="model.body"></vue-editor>
       </el-form-item>
 
       <el-form-item>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { VueEditor } from "vue2-editor";
+
 export default {
   name: 'ArticleEdit',
   data () {
@@ -77,7 +79,7 @@ export default {
     },
   },
   components: {
-
+    VueEditor
   },
 }
 </script>

@@ -23,7 +23,15 @@
       </el-form-item>
 
       <el-form-item label="详情">
-        <vue-editor v-model="model.body"></vue-editor>
+        <!-- 
+          -- useCustomImageHandler:开启自定义图像上传处理 
+          -- image-added: 上传处理事件
+        -->
+        <vue-editor
+          v-model="model.body"
+          useCustomImageHandler
+          @image-added="handleImageAdded"
+        ></vue-editor>
       </el-form-item>
 
       <el-form-item>
@@ -76,6 +84,21 @@ export default {
       const res = await this.$http.get('rest/categories')
       this.categories = res.data
       // this.categories.push(...res.data)
+    },
+    /**
+     * 需要传递四个参数：
+     * 1.处理的文件
+     * 2.编辑器实例
+     * 3.上传时的光标(可以成功插入到正确位置)
+     * 4.重置上传的方法
+     */
+    async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await this.$http.post('upload', formData)
+      Editor.insertEmbed(cursorLocation, "image", res.data.url);
+      resetUploader();
     },
   },
   components: {

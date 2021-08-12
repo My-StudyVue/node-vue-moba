@@ -52,19 +52,19 @@ const routes = [
 
       //////////////////////////////////////////////////////
       {
-        path: 'heroes/create',
-        name: '新建英雄',
-        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroEdit.vue'),
+        path: 'articles/create',
+        name: '新建文章',
+        component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleEdit.vue'),
       },
       {
-        path: 'heroes/list',
-        name: '英雄列表',
-        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroList.vue'),
+        path: 'articles/list',
+        name: '文章列表',
+        component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleList.vue'),
       },
       {
-        path: 'heroes/edit/:id',
-        name: '英雄详情',
-        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroEdit.vue'),
+        path: 'articles/edit/:id',
+        name: '文章详情',
+        component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleEdit.vue'),
         props: true,
       },
     ]

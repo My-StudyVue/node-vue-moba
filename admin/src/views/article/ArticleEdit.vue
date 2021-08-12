@@ -1,7 +1,7 @@
 <template>
   <div class="category-edit">
     <h1>{{ id ? '编辑' : '新建' }}文章</h1>
-    <el-form label-width="120px" :inline="true" @submit.native.prevent="save">
+    <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
         <el-select
           v-model="model.categories"
@@ -20,6 +20,10 @@
 
       <el-form-item label="标题">
         <el-input v-model="model.title"></el-input>
+      </el-form-item>
+
+      <el-form-item label="详情">
+        <el-input v-model="model.body" type="textarea"></el-input>
       </el-form-item>
 
       <el-form-item>

@@ -616,9 +616,9 @@ http.interceptors.response.use(res => {
 async login() {
   const res = await this.$http.post('login', this.model)
   // 表示当前浏览器关闭后依然保存着
-  localStorage.token = res.token
+  localStorage.token = res.data.token
   // 表示当前浏览器关闭之后就没了
-  // sessionStorage.token = res.token
+  // sessionStorage.token = res.data.token
   this.$router.push('/')
   this.$message({
     type: 'success',
@@ -674,7 +674,39 @@ router.get('/', async (req, res, next) => {
 })
 ```
 
-### 20.服务端登录校验
+### 20.服务端登录校验（http-assert）
+
+>判断用户不存在
+
+#### 安装 http-assert
+
+```sh
+$ npm i http-assert
+```
+
+#### 使用 http-assert
+
+>assert(username === 'fjodor', 401, 'authentication failed')
+>
+>参数1：需要满足的条件，
+>
+>参数2:   如果不满足抛出http代码错误，
+>
+>参数3：文字提示信息
+
+~~if (!user) {~~
+
+  ~~return res.status(422).send({~~
+
+  ~~message: '用户不存在'~~
+
+  ~~})~~
+
+~~}~~
+
+```js
+assert(user, 422, '用户不存在')
+```
 
 ### 21.客户端路由限制(beforeEach,meta)
 

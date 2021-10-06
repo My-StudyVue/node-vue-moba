@@ -7,6 +7,7 @@ module.exports = (app, express) => {
 
 
   const jwt = require('jsonwebtoken')
+  const assert = require('http-assert')
 
   const AdminUser = require('../../models/AdminUser')
 
@@ -39,6 +40,8 @@ module.exports = (app, express) => {
      * 后端 authorization 小写
      */
     const token = String(req.headers.authorization || '').split(' ').pop()
+    // assert(token, 401, '请提供 jwt token')
+    assert(token, 401, '请先登陆')
     /**
      * verify(token: string, secretOrPublicKey: jwt.Secret, options: jwt.VerifyOptions & { complete: true; }): string | jwt.Jwt
      * 
@@ -47,7 +50,10 @@ module.exports = (app, express) => {
      * decode 只是解密没有校验性
      */
     const { id } = jwt.verify(token, app.get('secret'))
+    // assert(id, 401, '无效的 jwt token')
+    assert(id, 401, '请先登陆')
     req.user = await AdminUser.findById(id)
+    assert(req.user, 401, '请先登陆')
     await next()
   }, async (req, res) => {
     // classify 转类名 小写复数转换成单数的形式
@@ -158,20 +164,24 @@ module.exports = (app, express) => {
     // const user = await AdminUser.findOne({ userName })
     // select('+password')表示 select: false的可以被取出来
     const user = await AdminUser.findOne({ userName }).select('+password')
-    if (!user) {
-      return res.status(422).send({
-        message: '用户不存在'
-      })
-    }
+    // if (!user) {
+    //   return res.status(422).send({
+    //     message: '用户不存在'
+    //   })
+    // }
+    //使用http-assert
+    assert(user, 422, '用户不存在')
 
 
     // 2.校验密码
     const isValid = require('bcrypt').compareSync(password, user.password)
-    if (!isValid) {
-      return res.status(422).send({
-        message: '密码错误'
-      })
-    }
+    // if (!isValid) {
+    //   return res.status(422).send({
+    //     message: '密码错误'
+    //   })
+    // }
+    //使用http-assert
+    assert(isValid, 422, '密码错误')
 
 
     // 3.返回token
@@ -185,5 +195,13 @@ module.exports = (app, express) => {
       // userName: user.userName, //一般大多数不需要用户名
     }, app.get('secret'))
     res.send({ token })
+  })
+
+
+  // 错误处理函数 ---> 捕获到异常
+  app.use(async (err, req, res, next) => {
+    res.status(err.statusCode || 500).send({
+      message: err.message
+    })
   })
 }

@@ -9,6 +9,8 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "about" */ '../views/login/Login.vue'),
+    //设置 路由状态
+    meta: { isPublic: true },
   },
   {
     path: '/',
@@ -132,6 +134,14 @@ const routes = [
 
 const router = new Router({
   routes
+})
+
+// 设置全局前置导航守卫
+router.beforeEach((to, form, next) => {
+  if (!to.meta.isPublic && !localStorage.token) {
+    return next('/login')
+  }
+  next()
 })
 
 export default router

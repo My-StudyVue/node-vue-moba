@@ -592,7 +592,7 @@ $ npm i jsonwebtoken
 
 #### 客户端
 
-##### axios 拦截器 ----> 捕获错误
+##### axios 接受拦截器 ----> 捕获错误
 
 ```js
 import Vue from 'vue'
@@ -628,6 +628,51 @@ async login() {
 ```
 
 ### 19.登录接口(jwt,jsonwebtoken)
+
+> 必须有token才能进行访问
+
+#### 客户端
+
+##### axios 请求拦截器 ----> 请求头里保存 token信息
+
+```js
+http.interceptors.request.use(config => {
+  // 请求头的授权信息 Authorization
+  config.headers.Authorization = 'Bearer ' + localStorage.token
+  return config
+}, err => {
+  return Promise.reject(err)
+})
+```
+
+#### 服务端
+
+##### 资源详情接口 加 中间键 --------> 校验用户是否登陆
+
+```js
+//加一个中间键
+router.get('/', async (req, res, next) => {
+  /**
+   * 校验用户是否登陆
+   * 
+   * 前端 Authorization 大写 
+   * 后端 authorization 小写
+   */
+  const token = String(req.headers.authorization || '').split(' ').pop()
+  /**
+   * verify(token: string, secretOrPublicKey: jwt.Secret, options: jwt.VerifyOptions & { complete: true; }): string | jwt.Jwt
+   * 
+   * 校验方法
+   * 
+   * decode 只是解密没有校验性
+   */
+  const { id } = jwt.verify(token, app.get('secret'))
+  req.user = await AdminUser.findById(id)
+  await next()
+}, async (req, res) => {
+  ...
+})
+```
 
 ### 20.服务端登录校验
 

@@ -6,8 +6,15 @@ module.exports = (app, express) => {
   })
 
 
+  const jwt = require('jsonwebtoken')
+
+  const AdminUser = require('../../models/AdminUser')
+
   // const Category = require('../../models/Category')
 
+  /**
+   * 创建资源
+   */
   // router.post('/categories', async (req, res) => {
   router.post('/', async (req, res) => {
     // const Mondel = require(`../../models/${req.params.resource}`)
@@ -18,8 +25,31 @@ module.exports = (app, express) => {
     res.send(model)
   })
 
+  /**
+   * 资源列表
+   */
   // router.get('/categories', async (req, res) => {
-  router.get('/', async (req, res) => {
+  // router.get('/', async (req, res) => {
+  //加一个中间键
+  router.get('/', async (req, res, next) => {
+    /**
+     * 校验用户是否登陆
+     * 
+     * 前端 Authorization 大写 
+     * 后端 authorization 小写
+     */
+    const token = String(req.headers.authorization || '').split(' ').pop()
+    /**
+     * verify(token: string, secretOrPublicKey: jwt.Secret, options: jwt.VerifyOptions & { complete: true; }): string | jwt.Jwt
+     * 
+     * 校验方法
+     * 
+     * decode 只是解密没有校验性
+     */
+    const { id } = jwt.verify(token, app.get('secret'))
+    req.user = await AdminUser.findById(id)
+    await next()
+  }, async (req, res) => {
     // classify 转类名 小写复数转换成单数的形式
     // const modelName = require('inflection').classify(req.params.resource)
     // const Mondel = require(`../../models/${modelName}`)
@@ -41,6 +71,9 @@ module.exports = (app, express) => {
     res.send(items)
   })
 
+  /**
+   * 资源详情
+   */
   // router.get('/categories/:id', async (req, res) => {
   router.get('/:id', async (req, res) => {
     // 列表详情
@@ -50,6 +83,9 @@ module.exports = (app, express) => {
     res.send(model)
   })
 
+  /**
+   * 修改（更新）资源
+   */
   // router.put('/categories/:id', async (req, res) => {
   router.put('/:id', async (req, res) => {
     // 列表更新/修改
@@ -59,6 +95,9 @@ module.exports = (app, express) => {
     res.send(model)
   })
 
+  /**
+   * 删除资源
+   */
   // router.delete('/categories/:id', async (req, res) => {
   router.delete('/:id', async (req, res) => {
     // 列表删除
@@ -116,7 +155,6 @@ module.exports = (app, express) => {
      * 寻找一条与输入用户名匹配的数据
      * 判断用户是否存在
      */
-    const AdminUser = require('../../models/AdminUser')
     // const user = await AdminUser.findOne({ userName })
     // select('+password')表示 select: false的可以被取出来
     const user = await AdminUser.findOne({ userName }).select('+password')
@@ -137,7 +175,6 @@ module.exports = (app, express) => {
 
 
     // 3.返回token
-    const jwt = require('jsonwebtoken')
     /**
      * sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: jwt.SignOptions): string
      * 

@@ -7,6 +7,14 @@ const http = axios.create({
   timeout: 5000
 })
 
+http.interceptors.request.use(config => {
+  // 请求头的授权信息 Authorization
+  config.headers.Authorization = 'Bearer ' + localStorage.token
+  return config
+}, err => {
+  return Promise.reject(err)
+})
+
 //拦截器 ----> 捕获错误
 http.interceptors.response.use(res => {
   return res.data

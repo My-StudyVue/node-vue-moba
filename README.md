@@ -531,7 +531,8 @@ password: {
 ##### 登陆接口
 
 ```js
-app.post('/admin/api/login', async (req, res) => {
+  //登陆接口
+  app.post('/admin/api/login', async (req, res) => {
     const { userName, password } = req.body
     /**
      * 1.根据用户名寻找用户
@@ -541,16 +542,28 @@ app.post('/admin/api/login', async (req, res) => {
      * 判断用户是否存在
      */
     const AdminUser = require('../../models/AdminUser')
-    const user = await AdminUser.findOne({ userName })
+    // const user = await AdminUser.findOne({ userName })
+    // select('+password')表示 select: false的可以被取出来
+    const user = await AdminUser.findOne({ userName }).select('+password')
     if (!user) {
       return res.status(422).send({
         message: '用户不存在'
       })
     }
+
+
     // 2.校验密码
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    if (!isValid) {
+      return res.status(422).send({
+        message: '密码错误'
+      })
+    }
+
+
     // 3.返回token
-    // res.send()
   })
+}
 ```
 
 #### 客户端

@@ -117,14 +117,25 @@ module.exports = (app, express) => {
      * 判断用户是否存在
      */
     const AdminUser = require('../../models/AdminUser')
-    const user = await AdminUser.findOne({ userName })
+    // const user = await AdminUser.findOne({ userName })
+    // select('+password')表示 select: false的可以被取出来
+    const user = await AdminUser.findOne({ userName }).select('+password')
     if (!user) {
       return res.status(422).send({
         message: '用户不存在'
       })
     }
+
+
     // 2.校验密码
+    const isValid = require('bcrypt').compareSync(password, user.password)
+    if (!isValid) {
+      return res.status(422).send({
+        message: '密码错误'
+      })
+    }
+
+
     // 3.返回token
-    // res.send()
   })
 }

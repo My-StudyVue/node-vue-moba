@@ -5,9 +5,5 @@
 </template>
 
 <style scoped>
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+@import "assets/css/base.css";
 </style>

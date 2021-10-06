@@ -103,4 +103,28 @@ module.exports = (app, express) => {
     file.url = `http://localhost:3000/uploads/${file.filename}`
     res.send(file)
   }) // 上传文件接口，不使用路由
+
+
+
+  //登陆接口
+  app.post('/admin/api/login', async (req, res) => {
+    const { userName, password } = req.body
+    /**
+     * 1.根据用户名寻找用户
+     * 
+     * 引入用户登陆模型
+     * 寻找一条与输入用户名匹配的数据
+     * 判断用户是否存在
+     */
+    const AdminUser = require('../../models/AdminUser')
+    const user = await AdminUser.findOne({ userName })
+    if (!user) {
+      return res.status(422).send({
+        message: '用户不存在'
+      })
+    }
+    // 2.校验密码
+    // 3.返回token
+    // res.send()
+  })
 }

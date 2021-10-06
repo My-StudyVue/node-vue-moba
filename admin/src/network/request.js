@@ -6,4 +6,12 @@ const http = axios.create({
   timeout: 5000
 })
 
+//拦截器 ----> 捕获错误
+http.interceptors.response.use(res => {
+  return res
+}, err => {
+  console.log(err.response);
+  return Promise.reject(err)
+})
+
 export default http

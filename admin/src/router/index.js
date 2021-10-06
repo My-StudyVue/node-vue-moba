@@ -6,6 +6,11 @@ Vue.use(Router)
 
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/login/Login.vue'),
+  },
+  {
     path: '/',
     name: 'main',
     component: Main,
@@ -52,6 +57,24 @@ const routes = [
 
       //////////////////////////////////////////////////////
       {
+        path: 'heroes/create',
+        name: '新建物品',
+        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroEdit.vue'),
+      },
+      {
+        path: 'heroes/list',
+        name: '物品列表',
+        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroList.vue'),
+      },
+      {
+        path: 'heroes/edit/:id',
+        name: '物品详情',
+        component: () => import(/* webpackChunkName: "about" */ '../views/hero/HeroEdit.vue'),
+        props: true,
+      },
+
+      //////////////////////////////////////////////////////
+      {
         path: 'articles/create',
         name: '新建文章',
         component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleEdit.vue'),
@@ -65,6 +88,42 @@ const routes = [
         path: 'articles/edit/:id',
         name: '文章详情',
         component: () => import(/* webpackChunkName: "about" */ '../views/article/ArticleEdit.vue'),
+        props: true,
+      },
+
+      /////////////////////////////////////////////////////
+      {
+        path: 'ads/create',
+        name: '新建广告位',
+        component: () => import(/* webpackChunkName: "about" */ '../views/ad/AdEdit.vue'),
+      },
+      {
+        path: 'ads/list',
+        name: '广告位列表',
+        component: () => import(/* webpackChunkName: "about" */ '../views/ad/AdList.vue'),
+      },
+      {
+        path: 'ads/edit/:id',
+        name: '广告位详情',
+        component: () => import(/* webpackChunkName: "about" */ '../views/ad/AdEdit.vue'),
+        props: true,
+      },
+
+      /////////////////////////////////////////////////////
+      {
+        path: 'admin_users/create',
+        name: '新建广告位',
+        component: () => import(/* webpackChunkName: "about" */ '../views/admin/AdminEdit.vue'),
+      },
+      {
+        path: 'admin_users/list',
+        name: '广告位列表',
+        component: () => import(/* webpackChunkName: "about" */ '../views/admin/AdminList.vue'),
+      },
+      {
+        path: 'admin_users/edit/:id',
+        name: '广告位详情',
+        component: () => import(/* webpackChunkName: "about" */ '../views/admin/AdminEdit.vue'),
         props: true,
       },
     ]

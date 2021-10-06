@@ -1,4 +1,5 @@
 # node-vue-moba
+
 > node.js+vue.js 全栈开发手机端官网和管理后台
 
 ## 一、入门
@@ -14,21 +15,25 @@
 ##### 设置proxy（代理）
 
 ###### 设置当前代理
+
 ```sh
 $ git config http.proxy http://127.0.0.1:2334
 ```
 
 ###### 取消当前代理
+
 ```sh
 $ git config --unset http.proxy
 ```
 
 ###### 取消全局代理
+
 ```sh
 $ git config --global --unset http.proxy
 ```
 
 ###### 设置socks5代理
+
 ```sh
 $ git config http.proxy socks5://127.0.0.1:10809
 ```
@@ -234,17 +239,17 @@ parent: { type: String },
 
 >/**
 >
->  \* parent: { type: String },
+>\* parent: { type: String },
 >
->  \* 
+>\* 
 >
->  \* 这里一定不是 String 类型，一定是特殊类型
+>\* 这里一定不是 String 类型，一定是特殊类型
 >
->  \* 
+>\* 
 >
->  \* ref 表示关联的模型
+>\* ref 表示关联的模型
 >
->  */
+>*/
 
 ```js
 parent: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' },
@@ -402,15 +407,15 @@ app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
 
   >   /**
   >
-  >​    \* 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
+  >   ​    \* 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
   >
-  >​    \* 
+  >   ​    \* 
   >
-  >​    \* this.$set(target, key, value) 方法 -----> 响应式对象
+  >   ​    \* this.$set(target, key, value) 方法 -----> 响应式对象
   >
-  >​    \* 要更改的数据源(可以是对象或者数组)，要更改的具体数据，重新赋的值
+  >   ​    \* 要更改的数据源(可以是对象或者数组)，要更改的具体数据，重新赋的值
   >
-  >​    */
+  >   ​    */
 
   ```js
   this.$set(this.model, 'icon', res.url)
@@ -427,13 +432,13 @@ app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
 
   >   /**
   >
-  >​    \* 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+  >   ​    \* 方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
   >
-  >​    \* Object.assign(target, source1,source2)
+  >   ​    \* Object.assign(target, source1,source2)
   >
-  >​    \* 第一个参数是目标对象，后面的参数都是源对象
+  >   ​    \* 第一个参数是目标对象，后面的参数都是源对象
   >
-  >​    */
+  >   ​    */
 
   ```js
   this.model = Object.assign({}, this.model, res.data)
@@ -520,6 +525,53 @@ password: {
 >hashSync 同步方法 ----> 设置的值 和 密码散列话程度（10-12 为最好，太高或太低都不好）
 
 ### 18.登录接口
+
+#### 服务端
+
+##### 登陆接口
+
+```js
+app.post('/admin/api/login', async (req, res) => {
+    const { userName, password } = req.body
+    /**
+     * 1.根据用户名寻找用户
+     * 
+     * 引入用户登陆模型
+     * 寻找一条与输入用户名匹配的数据
+     * 判断用户是否存在
+     */
+    const AdminUser = require('../../models/AdminUser')
+    const user = await AdminUser.findOne({ userName })
+    if (!user) {
+      return res.status(422).send({
+        message: '用户不存在'
+      })
+    }
+    // 2.校验密码
+    // 3.返回token
+    // res.send()
+  })
+```
+
+#### 客户端
+
+##### axios 拦截器 ----> 捕获错误
+
+```js
+import Vue from 'vue'
+
+http.interceptors.response.use(res => {
+  return res.data
+}, err => {
+  if (err.response.data.message) {
+    Vue.prototype.$message({
+      type: 'error',
+      message: err.response.data.message,
+    });
+  }
+  return Promise.reject(err)
+})
+```
 
 ### 19.登录接口(jwt,jsonwebtoken)
 

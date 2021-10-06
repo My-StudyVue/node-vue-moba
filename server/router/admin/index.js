@@ -137,5 +137,16 @@ module.exports = (app, express) => {
 
 
     // 3.返回token
+    const jwt = require('jsonwebtoken')
+    /**
+     * sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: jwt.SignOptions): string
+     * 
+     * payload 承载的数据，secretOrPrivateKey 密钥 ---> 全局的
+     */
+    const token = jwt.sign({
+      id: user._id,
+      // userName: user.userName, //一般大多数不需要用户名
+    }, app.get('secret'))
+    res.send({ token })
   })
 }

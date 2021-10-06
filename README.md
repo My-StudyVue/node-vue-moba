@@ -588,6 +588,59 @@ http.interceptors.response.use(res => {
 
 ### 19.登录接口(jwt,jsonwebtoken)
 
+#### 安装 jsonwebtoken
+
+```sh
+$ npm i jsonwebtoken
+```
+
+#### 使用 jsonwebtoken
+
+##### 服务端
+
+- 在 /router/admin 中 “登陆接口” 中完成 **3.返回token**
+
+  ```js
+  // 3.返回token
+  const jwt = require('jsonwebtoken')
+  /**
+   * sign(payload: string | object | Buffer, secretOrPrivateKey: jwt.Secret, options?: jwt.SignOptions): string
+   * 
+   * payload 承载的数据，secretOrPrivateKey 密钥 ---> 全局的
+   */
+  const token = jwt.sign({
+    id: user._id,
+    // userName: user.userName, //一般大多数不需要用户名
+  }, app.get('secret'))
+  res.send({ token })
+  ```
+
+- 在 index.js 中 定义全局变量
+
+  ```js
+  //可放在全局变量环境里
+  app.set('secret', 'i26rtfx4e456b')
+  ```
+
+##### 客户端
+
+- 保存token
+
+  ```js
+  async login() {
+    const res = await this.$http.post('login', this.model)
+    // 表示当前浏览器关闭后依然保存着
+    localStorage.token = res.token
+    // 表示当前浏览器关闭之后就没了
+    // sessionStorage.token = res.token
+    this.$router.push('/')
+    this.$message({
+      type: 'success',
+      message: '登陆成功'
+    })
+  }
+  ```
+
 ### 20.服务端登录校验
 
 ### 21.客户端路由限制(beforeEach,meta)

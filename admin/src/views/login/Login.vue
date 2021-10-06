@@ -37,7 +37,15 @@ export default {
   methods: {
     async login() {
       const res = await this.$http.post('login', this.model)
-      console.log(res.data);
+      // 表示当前浏览器关闭后依然保存着
+      localStorage.token = res.token
+      // 表示当前浏览器关闭之后就没了
+      // sessionStorage.token = res.token
+      this.$router.push('/')
+      this.$message({
+        type: 'success',
+        message: '登陆成功'
+      })
     }
   }
 }

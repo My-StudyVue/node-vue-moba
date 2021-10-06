@@ -2,6 +2,9 @@ const express = require('express')
 
 const app = express()
 
+//可放在全局变量环境里
+app.set('secret', 'i26rtfx4e456b')
+
 // json 格式接收
 app.use(express.json())
 

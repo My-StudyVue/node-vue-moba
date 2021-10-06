@@ -8,6 +8,9 @@ module.exports = (app, express) => {
 
   const jwt = require('jsonwebtoken')
   const assert = require('http-assert')
+  const authMiddleware = require('../../middleware/auth')
+  const uploadMiddleware = require('../../middleware/upload')
+  const resourceMiddleware = require('../../middleware/resource')
 
   const AdminUser = require('../../models/AdminUser')
 
@@ -30,32 +33,7 @@ module.exports = (app, express) => {
    * 资源列表
    */
   // router.get('/categories', async (req, res) => {
-  // router.get('/', async (req, res) => {
-  //加一个中间键
-  router.get('/', async (req, res, next) => {
-    /**
-     * 校验用户是否登陆
-     * 
-     * 前端 Authorization 大写 
-     * 后端 authorization 小写
-     */
-    const token = String(req.headers.authorization || '').split(' ').pop()
-    // assert(token, 401, '请提供 jwt token')
-    assert(token, 401, '请先登陆')
-    /**
-     * verify(token: string, secretOrPublicKey: jwt.Secret, options: jwt.VerifyOptions & { complete: true; }): string | jwt.Jwt
-     * 
-     * 校验方法
-     * 
-     * decode 只是解密没有校验性
-     */
-    const { id } = jwt.verify(token, app.get('secret'))
-    // assert(id, 401, '无效的 jwt token')
-    assert(id, 401, '请先登陆')
-    req.user = await AdminUser.findById(id)
-    assert(req.user, 401, '请先登陆')
-    await next()
-  }, async (req, res) => {
+  router.get('/', async (req, res) => {
     // classify 转类名 小写复数转换成单数的形式
     // const modelName = require('inflection').classify(req.params.resource)
     // const Mondel = require(`../../models/${modelName}`)
@@ -116,31 +94,15 @@ module.exports = (app, express) => {
   })
 
   // app.use('/admin/api/', router) //匹配 /admin/api 开头的路由
-  app.use('/admin/api/rest/:resource', async (req, res, next) => {
-    const modelName = require('inflection').classify(req.params.resource)
-    req.Mondel = require(`../../models/${modelName}`)
-
-    next()
-  }, router) //通用接口
+  // app.use('/admin/api/rest/:resource', async (req, res, next) => {
+  // 再加一个登陆授权的中间键
+  app.use('/admin/api/rest/:resource', authMiddleware(assert, jwt, AdminUser), resourceMiddleware(), router) //通用接口
 
 
-  const multer = require('multer')
-  // 上传中间键
-  const upload = multer({
-    /**
-     * dest 目标地址在哪里 
-     * 
-     * __dirname 绝对地址 （必须加）
-     * 
-     * upload.single() 表示单个文件的上传
-     * 
-     * file 表示 传入的参数字段（Form Data 里的）
-     * 
-     */
-    dest: __dirname + '/../../uploads'
-  })
   // 有了上传中间键req 上才会有file
-  app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
+  // app.post('/admin/api/upload', uploadMiddleware().single('file'), async (req, res) => {
+  // 再加一个登陆授权的中间键
+  app.post('/admin/api/upload', authMiddleware(assert, jwt, AdminUser), uploadMiddleware().single('file'), async (req, res) => {
     const file = req.file
     /**
      * 需要定义静态路由来访问静态文件进行文件托管

@@ -13,6 +13,6 @@ module.exports = () => {
      * file 表示 传入的参数字段（Form Data 里的）
      * 
      */
-    dest: __dirname + '/../../uploads'
+    dest: __dirname + '/../uploads'
   })
 }

@@ -21,7 +21,8 @@
             <el-form-item label="头像">
               <el-upload
                 class="avatar-uploader"
-                :action="$http.defaults.baseURL + '/upload'"
+                :action="uploadUrl"
+                :headers="getAuthHeaders"
                 :show-file-list="false"
                 :on-success="afterUpload"
               >
@@ -181,7 +182,8 @@
                 >
                   <el-upload
                     class="avatar-uploader"
-                    :action="$http.defaults.baseURL + '/upload'"
+                    :action="uploadUrl"
+                    :headers="getAuthHeaders"
                     :show-file-list="false"
                     :on-success="(res) => $set(item, 'icon', res.url)"
                   >
@@ -241,8 +243,10 @@
 </template>
 
 <script>
+import uploadFileMixin from '../../mixins/common/uploadFileMixin'
 export default {
   name: 'HeroEdit',
+  mixins: [uploadFileMixin],
   data() {
     return {
       // model: {},

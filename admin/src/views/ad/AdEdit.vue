@@ -36,9 +36,10 @@
               >
                 <el-upload
                   class="avatar-uploader"
-                  :action="$http.defaults.baseURL + '/upload'"
+                  :action="uploadUrl"
+                  :headers="getAuthHeaders"
                   :show-file-list="false"
-                  :on-success="(res) => $set(item, 'images', res.url)"
+                  :on-success="afterUpload"
                 >
                   <img
                     v-if="item.images"
@@ -76,8 +77,10 @@
 </template>
 
 <script>
+import uploadFileMixin from '../../mixins/common/uploadFileMixin'
 export default {
   name: 'AdEdit',
+  mixins: [uploadFileMixin],
   data() {
     return {
       model: {
@@ -113,6 +116,17 @@ export default {
       // this.model = res.data
       this.model = Object.assign({}, this.model, res.data)
     },
+    afterUpload(res) {
+      // res 表示服务端的响应数据
+      // this.model.icon = res.url
+      /**
+       * 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
+       * 
+       * this.$set(target, key, value) 方法 -----> 响应式对象
+       * 要更改的数据源(可以是对象或者数组)，要更改的具体数据，重新赋的值
+       */
+      this.$set(this.item, 'images', res.url)
+    }
   },
   components: {
 

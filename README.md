@@ -497,6 +497,28 @@ app.post('/admin/api/upload', upload.single('file'), async (req, res) => {
 
 ### 17.管理员账号管理(bcrypt)
 
+#### 安装bcrypt
+
+```sh
+$ npm i bcrypt
+```
+
+- 使密码散列话
+
+#### 使用
+
+```js
+password: {
+  type: String,
+  select: false, // 不能被查询
+  set(val) {
+    return require('bcrypt').hashSync(val, 10)
+  }
+},
+```
+
+>hashSync 同步方法 ----> 设置的值 和 密码散列话程度（10-12 为最好，太高或太低都不好）
+
 ### 18.登录接口
 
 ### 19.登录接口(jwt,jsonwebtoken)

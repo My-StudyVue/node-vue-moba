@@ -3,59 +3,84 @@
 /*:root -> 获取根元素html*/
 :root 
   /* 定义变量 */
-  --color-text: #666,
-  --color-high-text: #ff0130,
-  --color-tint: #f5143d,
-  --color-background: #fff,
-  --font-size: 14px,
-  --line-height: 1.5,
+  --color-text: #666
+  --color-high-text: #ff0130
+  --color-tint: #f5143d
+  --color-background: #fff
+  --font-size: 14px
+  --line-height: 1.5
 
 
 *,
 *::before,
 *::after 
-  margin: 0,
-  padding: 0,
-  box-sizing: border-box,
-  // outline:none,
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  // outline:none
 
 
 html 
-  font-size:13px,
+  font-size:13px
 
 body 
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif,
-  user-select: none, /* 禁止用户鼠标在页面上选中文字/图片等 */
-  -webkit-tap-highlight-color: transparent, /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
-  // background: var(--color-background),
-  background: #f1f1f1,
-  color: var(--color-text),
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif
+  user-select: none /* 禁止用户鼠标在页面上选中文字/图片等 */
+  -webkit-tap-highlight-color: transparent /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
+  // background: var(--color-background)
+  background: #f1f1f1
+  color: var(--color-text)
   /* rem vw/vh */
-  width: 100vw,
-  line-height:var(--line-height),
+  width: 100vw
+  line-height:var(--line-height)
 
 a 
-  color: var(--color-text),
-  text-decoration: none,
+  color: var(--color-text)
+  text-decoration: none
 
 
 
 .clear-fix::after 
-  clear: both,
-  content: '',
-  display: block,
-  width: 0,
-  height: 0,
-  visibility: hidden,
+  clear: both
+  content: ''
+  display: block
+  width: 0
+  height: 0
+  visibility: hidden
 
 
 .clear-fix 
-  zoom: 1,
+  zoom: 1
 
 
 .left 
-  float: left,
+  float: left
 
 
 .right 
-  float: right,
+  float: right
+
+/** color */
+// $colors:(a,b,c) // list
+// $colors:(a:1,b:2,c:3) //map
+$colors:("primary": #db9e3f,"white": #fff,"light": #f9f9f9,"grey": #999,"dark-1": #343440,"dark": #222,"black": #000,)
+@each $colorKey,$color in $colors
+  .text-#{$colorKey}
+    text-color: $color
+  .bg-#{$colorKey}
+    background-color: $color
+
+
+/** text align */
+// @each $var in list ----> 循环
+@each $var in (left,center,right)
+  .text-#{$var}
+    text-align:$var
+
+/** text font */
+$base-font-size:1rem
+// xs:10px sm:12px md:13px lg:14px xl:16px
+$font-sizes:(xs: 0.7692,sm: 0.9231,md: 1,lg:1.0769,xl: 1.2308,)
+@each $sizeKey,$size in $font-sizes
+  .fs-#{$sizeKey}
+    font-size: $size * $base-font-size

@@ -720,11 +720,79 @@ assert(user, 422, '用户不存在')
 
 >设置全局class 进行直接引用
 
-### 2.考虑整体样式
+#### 安装sass
+
+```sh
+$ npm i npm i -D sass sass-loader
+```
+
+### 2.整体样式
 
 #### 样式重置
 
 >根据不同的设备配置不同的样式
+
+#### sass 语法
+
+##### 定义变量
+
+- Css  定义变量
+
+  ```css
+   --color-text: #666
+  ```
+
+- Less  定义变量
+
+  ```less
+  @width: 10px;
+  ```
+
+- Sass  定义变量
+
+  ```scss
+  // $colors:(a,b,c) // list
+  // $colors:(a:1,b:2,c:3) //map
+  $colors:("primary": #db9e3f,"white": #fff,"light": #f9f9f9,"grey": #999,"dark-1": #343440,"dark": #222,"black": #000,)
+    
+  $base-font-size:1rem
+  ```
+
+##### 使用变量
+
+- Css  使用变量
+
+  ```css
+  color: var(--color-text)
+  ```
+
+- Less 使用变量
+
+  ```less
+  width: @width;
+  ```
+
+- Sass 使用变量
+
+  ```scss
+  font-size: $base-font-size
+  ```
+
+##### sass 的循环
+
+>@each $var in list ----> 循环
+>
+>
+>
+>Class  名称变量 为 **#{$var}**
+>
+>Css 样式变量 为 **$var**
+
+```scss
+@each $var in (left,center,right)
+  .text-#{$var}
+    text-align:$var
+```
 
 ### 3.使用字体图标(iconfont)
 

@@ -84,3 +84,21 @@ $font-sizes:(xs: 0.7692,sm: 0.9231,md: 1,lg:1.0769,xl: 1.2308,)
 @each $sizeKey,$size in $font-sizes
   .fs-#{$sizeKey}
     font-size: $size * $base-font-size
+
+/** flex 布局 */
+.d-flex
+  display: flex
+.flex-column
+  flex-direction: column
+$flex-jc:(start: flex-start,ed: flex-ed,center: center,between: space-between,around: space-around)
+@each $key,$value in $flex-jc
+  .jc-#{$key}
+    justify-content: $value
+$flex-ai:(start: flex-start,ed: flex-ed,center: center,stretch: stretch)
+@each $key,$value in $flex-ai
+  .ai-#{$key}
+    align-items: $value
+.flex-1
+  flex: 1
+.flex-grow-1
+  flex-grow: 1

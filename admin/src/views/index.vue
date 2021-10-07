@@ -6,7 +6,6 @@
     >
       <el-menu
         router
-        :default-openeds="['3']"
         unique-opened
         :default-active="$route.path"
       >

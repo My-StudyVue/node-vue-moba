@@ -794,6 +794,10 @@ $ npm i npm i -D sass sass-loader
     text-align:$var
 ```
 
+#### 可参考标准样式网站 ------> **bootstrap**
+
+> 官网 https://v3.bootcss.com/
+
 ### 3.使用字体图标(iconfont)
 
 ### 4.首页顶部轮播图(swiper)

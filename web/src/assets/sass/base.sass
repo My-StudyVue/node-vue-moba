@@ -77,6 +77,7 @@ $colors:("primary": #db9e3f,"white": #fff,"light": #f9f9f9,"grey": #999,"dark-1"
   .text-#{$var}
     text-align:$var
 
+
 /** text font */
 $base-font-size:1rem
 // xs:10px sm:12px md:13px lg:14px xl:16px
@@ -84,6 +85,7 @@ $font-sizes:(xs: 0.7692,sm: 0.9231,md: 1,lg:1.0769,xl: 1.2308,)
 @each $sizeKey,$size in $font-sizes
   .fs-#{$sizeKey}
     font-size: $size * $base-font-size
+
 
 /** flex 布局 */
 .d-flex
@@ -102,3 +104,30 @@ $flex-ai:(start: flex-start,ed: flex-ed,center: center,stretch: stretch)
   flex: 1
 .flex-grow-1
   flex-grow: 1
+
+
+/** spaing */
+//.mt-1 => margin top level 1
+$spacing-base-size: 1rem
+$spacing-types:(m: margin,p: padding)
+$spacing-directions:(t: top,r: right,b: bottom,l: left)
+$spacing-sizes:(0: 0,1: 0.25,2: 0.5,3: 1,4: 1.5,5: 3)
+@each $typeKey,$type in $spacing-types
+  // 格式 .m-1 {marigin:0.25rem}
+  @each $sizeKey,$size in $spacing-sizes
+    .#{$typeKey}-#{$sizeKey}
+      #{$type}: $size * $spacing-base-size
+  // 格式 .mx-1 {marigin-left:0.25rem}
+    .#{$typeKey}x-#{$sizeKey}
+      #{$type}-left: $size * $spacing-base-size
+      #{$type}-right: $size * $spacing-base-size
+  // 格式 .my-1 {marigin-top:0.25rem}
+    .#{$typeKey}y-#{$sizeKey}
+      #{$type}-top: $size * $spacing-base-size
+      #{$type}-bottom: $size * $spacing-base-size
+  // 格式 .mt-1 {marigin-top:0.25rem}
+  @each $directionKey,$direction in $spacing-directions
+    @each $sizeKey,$size in $spacing-sizes
+      .#{$typeKey}#{$directionKey}-#{$sizeKey}
+        #{$type}-#{$direction}: $size * $spacing-base-size
+

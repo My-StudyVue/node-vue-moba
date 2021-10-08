@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>hhh</h2>
+    <router-view />
   </div>
 </template>
 
@@ -14,5 +14,5 @@ export default {
 </script>
 
 <style lang="sass">
-@import "assets/sass/base.sass"
+@import "assets/sass/_base.sass"
 </style>

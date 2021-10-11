@@ -19,7 +19,7 @@ const routes = [
       {
         path: '/',
         name: 'home',
-        component: () => import(/* webpackChunkName: "about" */ '../layouts/leftMenuLayout/index.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../layouts/leftMenuLayout/LeftMenuLayout.vue'),
       },
     ]
   },

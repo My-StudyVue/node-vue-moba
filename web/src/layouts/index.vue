@@ -15,20 +15,12 @@
       >立即下载</button>
     </div>
     <div class="bg-primary pb-2">
-      <div class="nav d-flex text-white jc-around pb-1">
-        <div
-          class="nav-item active"
-          v-for="(item,index) in navBar"
-          :key="index"
-        >
-          <!-- tag="div"  router-link 改成 div,不是a 标签-->
-          <router-link
-            class="nav-link"
-            tag="div"
-            to="/"
-          >{{item}}</router-link>
-        </div>
-      </div>
+      <tab-control
+        ref="tabControl"
+        :tabControls="tabControls"
+        @tabClick="tabClick"
+        class="tab-control"
+      />
     </div>
     <router-view />
   </div>
@@ -40,11 +32,16 @@ export default {
   name: 'index',
   data() {
     return {
-      navBar: ['首页', '攻略中心', '赛事中心', 'IP新游']
+      tabControls: ['首页', '攻略中心', '赛事中心', 'IP新游']
     }
   },
   components: {
-  }
+  },
+  methods: {
+    tabClick(index) {
+      console.log(index);
+    }
+  },
 }
 </script>
 
@@ -56,15 +53,5 @@ export default {
   // font-size: map-get($font-sizes, "sm") * $base-font-size;
   font-size: 0.9231rem;
   padding: 0.2rem 0.6rem;
-}
-
-.nav {
-  .nav-item {
-    border: 3px solid transparent;
-    padding-bottom: 0.2rem;
-    &.active {
-      border-bottom: 3px solid #fff;
-    }
-  }
 }
 </style>

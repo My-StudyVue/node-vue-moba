@@ -33,17 +33,27 @@ export default {
         pagination: {
           el: '.pagination-home',
         },
+        loop: true,
+        parallax: true,
+        freeMode: true,
+        freeModeMomentum: true,
+        autoplay: {
+          delay: 2000,
+        },
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true,
+        },
       }
     };
   },
   computed: {
     swiper() {
-      return this.$refs.mySwiper.$swiper
+      return this.$refs.mySwiper.swiper
     }
   },
   mounted() {
-    console.log('Current Swiper instance object', this.swiper)
-    this.swiper.slideTo(3, 1000, true)
+
   },
 
   methods: {}

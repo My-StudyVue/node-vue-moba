@@ -1,14 +1,5 @@
-@import './_normalize'
-
-/*:root -> 获取根元素html*/
-:root 
-  /* 定义变量 */
-  --color-text: #666
-  --color-high-text: #ff0130
-  --color-tint: #f5143d
-  --color-background: #fff
-  --font-size: 14px
-  --line-height: 1.5rem
+@import './normalize'
+@import './variables'
 
 
 *,
@@ -67,10 +58,6 @@ a
  * @include 指令可以将混入（mixin）引入到文档中。
  */
 
-/** color */
-// $colors:(a,b,c) // list
-// $colors:(a:1,b:2,c:3) //map
-$colors:("primary": #db9e3f,"white": #fff,"light": #f9f9f9,"grey": #999,"grey-1": #666,"dark-1": #343440,"dark": #222,"black": #000,) 
 @each $colorKey,$color in $colors
   .text-#{$colorKey}
     color: $color
@@ -82,28 +69,27 @@ $colors:("primary": #db9e3f,"white": #fff,"light": #f9f9f9,"grey": #999,"grey-1"
 // @each $var in list ----> 循环
 @each $var in (left,center,right)
   .text-#{$var}
-    text-align:$var
+    text-align:$var !important
 
 
-/** text font */
-$base-font-size:1rem
-// xxs:8px xs:10px sm:12px md:13px lg:14px xl:16px
-$font-sizes:(xxs:0.6154,xs: 0.7692,sm: 0.9231,md: 1,lg:1.0769,xl: 1.2308,)
 @each $sizeKey,$size in $font-sizes
   .fs-#{$sizeKey}
     font-size: $size * $base-font-size
 
+/** width,height */
+.w-100
+  width: 100%
+.h-100
+  height:100%
 
 /** flex 布局 */
 .d-flex
   display: flex
 .flex-column
   flex-direction: column
-$flex-jc:(start: flex-start,ed: flex-ed,center: center,between: space-between,around: space-around)
 @each $key,$value in $flex-jc
   .jc-#{$key}
     justify-content: $value
-$flex-ai:(start: flex-start,ed: flex-ed,center: center,stretch: stretch)
 @each $key,$value in $flex-ai
   .ai-#{$key}
     align-items: $value
@@ -113,12 +99,6 @@ $flex-ai:(start: flex-start,ed: flex-ed,center: center,stretch: stretch)
   flex-grow: 1
 
 
-/** spaing */
-//.mt-1 => margin top level 1
-$spacing-base-size: 1rem
-$spacing-types:(m: margin,p: padding)
-$spacing-directions:(t: top,r: right,b: bottom,l: left)
-$spacing-sizes:(0: 0,1: 0.25,2: 0.5,3: 1,4: 1.5,5: 3)
 @each $typeKey,$type in $spacing-types
   // 格式 .m-1 {marigin:0.25rem}
   @each $sizeKey,$size in $spacing-sizes

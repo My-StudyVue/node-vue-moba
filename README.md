@@ -798,23 +798,107 @@ $ npm i npm i -D sass sass-loader
 
 > 官网 https://v3.bootcss.com/
 
-### 3.使用字体图标(iconfont)
+### 3.首页顶部轮播图(swiper)
 
-### 4.首页顶部轮播图(swiper)
+#### 安装**vue-awesome-swiper**组件
 
-### 5.考虑通用组件(SFC)
+```sh
+//直接安装版本3即可，自动会选择3.1.3版本
+$ npm i vue-awesome-swiper@3 -S
+```
 
-### 6.卡片组件
+#### 使用vue-awesome-swiper
 
-### 7.菜单组件
+##### 全局引用-------> main.js
 
-### 8.首页新闻资讯
+```js
+import Vue from 'vue'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+ 
+// import style
+import 'swiper/css/swiper.css'
+ 
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+```
 
-### 9.新闻详情页
+##### 局部引用
 
-### 10.首页英雄列表
+```js
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
+ 
+export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  directives: {
+    swiper: directive
+  }
+}
+```
 
-### 11.英雄详情页
+##### 页面使用
+
+```vue
+<template>
+  <swiper ref="mySwiper" :options="swiperOptions">
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    <swiper-slide>Slide 4</swiper-slide>
+    <swiper-slide>Slide 5</swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
+</template>
+ 
+<script>
+  export default {
+    name: 'carrousel',
+    data() {
+      return {
+        swiperOptions: {
+          pagination: {
+            el: '.swiper-pagination'
+          },
+          // Some Swiper option/callback...
+        }
+      }
+    },
+    computed: {
+      swiper() {
+        return this.$refs.mySwiper.$swiper
+      }
+    },
+    mounted() {
+      console.log('Current Swiper instance object', this.swiper)
+      this.swiper.slideTo(3, 1000, false)
+    }
+  }
+</script> 
+```
+
+> 更多使用方式见 
+>
+> 官网 https://www.npmjs.com/package/vue-awesome-swiper
+
+### 4.使用精灵图片(spirte) 
+
+### 5.使用字体图标(iconfont) 
+
+### 6.考虑通用组件(SFC)
+
+### 7.卡片组件
+
+### 8.菜单组件
+
+### 9.首页新闻资讯
+
+### 10.新闻详情页
+
+### 11.首页英雄列表
+
+### 12.英雄详情页
 
 --------
 

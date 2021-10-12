@@ -179,7 +179,8 @@ $type in $spacing-types {
 
 /** sprite 精灵图标 */
 .sprite {
-  background: url(/@/assets/img/sprite.png) no-repeat 0 0;
+  background: url(https://game.gtimg.cn/images/yxzj/m/m201706/images/bg/index.png) no-repeat 0 0;
+  // background: url('../img/sprite.png') no-repeat 0 0;
   background-size: 28.8462rem;
   display: inline-block;
 
@@ -187,13 +188,11 @@ $type in $spacing-types {
     width: 1.7692rem;
     height: 1.5385rem;
     background-position: 63.546% 15.517%;
-    background-color: blue;
   }
 
   &.sprite-arrow {
     width: 0.7692rem;
     height: 0.7692rem;
     background-position: 38.577% 52.076%;
-    background-color: blue;
   }
 }

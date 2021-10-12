@@ -15,4 +15,5 @@ export default {
 
 <style lang="scss">
 @import "assets/scss/_base.scss";
+@import "assets/iconfont/iconfont.css";
 </style>

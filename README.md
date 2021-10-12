@@ -884,6 +884,10 @@ export default {
 
 ### 4.使用精灵图片(spirte) 
 
+#### 精灵图片辅助网站 spritecow
+
+> 官网 http://www.spritecow.com/
+
 ### 5.使用字体图标(iconfont) 
 
 ### 6.考虑通用组件(SFC)

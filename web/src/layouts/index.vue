@@ -1,27 +1,37 @@
 <template>
   <div class="main-page">
-    <div class="topBar bg-black py-2 px-3 d-flex ai-center">
-      <img
-        src="@/assets/img/logo.png"
-        height="30"
+    <nav-bar class="topBar bg-black py-2 px-3 ai-center">
+      <div
+        slot="left"
+        class="left d-flex"
       >
-      <div class="px-2 flex-1">
-        <div class="text-white">王者荣耀</div>
-        <div class="text-grey-1 fs-xxs">团队成就更多</div>
+        <img
+          src="@/assets/img/logo.png"
+          height="30"
+        >
+        <div class="px-2">
+          <div class="text-white">王者荣耀</div>
+          <div class="text-grey-1 fs-xxs">团队成就更多</div>
+        </div>
       </div>
-      <button
-        type="button"
-        class="btn bg-primary"
-      >立即下载</button>
-    </div>
-    <div class="bg-primary pb-2">
-      <tab-control
-        ref="tabControl"
-        :tabControls="tabControls"
-        @tabClick="tabClick"
-        class="tab-control"
-      />
-    </div>
+      <div
+        slot="right"
+        class="right"
+      >
+        <button
+          type="button"
+          class="btn bg-primary"
+        >立即下载</button>
+      </div>
+    </nav-bar>
+
+    <tab-control
+      ref="tabControl"
+      color="#fff"
+      :tabControls="tabControls"
+      @tabClick="tabClick"
+      class="tab-control bg-primary pb-2 text-white"
+    />
     <router-view />
   </div>
 </template>
@@ -53,5 +63,16 @@ export default {
   // font-size: map-get($font-sizes, "sm") * $base-font-size;
   font-size: 0.9231rem;
   padding: 0.2rem 0.6rem;
+}
+
+.nav-bar {
+  .left,
+  .right {
+    width: 180px;
+  }
+}
+
+.tab-control {
+  justify-content: space-around;
 }
 </style>

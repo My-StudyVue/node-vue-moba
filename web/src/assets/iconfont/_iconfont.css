@@ -1,9 +1,9 @@
 @font-face {
   font-family: "moba";
   /* Project id 2863311 */
-  src: url('//at.alicdn.com/t/font_2863311_qut007pg2ji.woff2?t=1634046813944') format('woff2'),
-    url('//at.alicdn.com/t/font_2863311_qut007pg2ji.woff?t=1634046813944') format('woff'),
-    url('//at.alicdn.com/t/font_2863311_qut007pg2ji.ttf?t=1634046813944') format('truetype');
+  src: url('//at.alicdn.com/t/font_2863311_dk71w54mey.woff2?t=1634135520919') format('woff2'),
+    url('//at.alicdn.com/t/font_2863311_dk71w54mey.woff?t=1634135520919') format('woff'),
+    url('//at.alicdn.com/t/font_2863311_dk71w54mey.ttf?t=1634135520919') format('truetype');
 }
 
 .moba {
@@ -12,6 +12,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-more:before {
+  content: "\e606";
 }
 
 .ico-hero:before {

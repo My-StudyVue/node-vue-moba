@@ -1,5 +1,5 @@
-// import MainTabBar from "./mainTabBar/MainTabBar";//授权组件
+import Card from "./card/Card";
 
-// export default {
-//   MainTabBar,
-// };
+export default {
+  Card,
+};

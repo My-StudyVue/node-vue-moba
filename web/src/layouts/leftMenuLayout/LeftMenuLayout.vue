@@ -37,10 +37,11 @@
       </div>
     </div>
 
-    <div>
-      <i class="moba ico-news"></i>
-      hhh
-    </div>
+    <card>
+      <div slot="container">
+
+      </div>
+    </card>
   </div>
 </template>
 <script>

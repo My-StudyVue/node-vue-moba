@@ -1,10 +1,10 @@
 <template>
-  <div class="tab-control d-flex text-white jc-around pb-1">
+  <div class="tab-control d-flex jc-between pb-1">
     <div
       v-for="(item,index) in tabControls"
       :key="index"
       class="tab-control-item"
-      :class="{active: index === currentIndex}"
+      :style="[{ borderBottom: index === currentIndex ? `3px solid ${color}` : ''},{ color: index === currentIndex ? color : ''}] "
       @click="itemClick(index)"
     >
       <!-- tag="div"  router-link 改成 span,不是a 标签-->
@@ -20,13 +20,16 @@
 <script>
 export default {
   name: "TabControl",
-  components: {},
   props: {
     tabControls: {
       type: Array,
       default() {
         return []
       }
+    },
+    color: {
+      type: String,
+      default: '#db9e3f'
     }
   },
   data() {
@@ -48,9 +51,6 @@ export default {
   .tab-control-item {
     border: 3px solid transparent;
     padding-bottom: 0.2rem;
-    &.active {
-      border-bottom: 3px solid #fff;
-    }
   }
 }
 </style>

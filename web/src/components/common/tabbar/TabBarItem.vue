@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "TabBarItem",
+  name: "LTabBarItem",
   props: {
     path: String,
     activeColor: {

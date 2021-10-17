@@ -1,6 +1,6 @@
 <template>
   <div class="main-page">
-    <nav-bar class="topBar bg-black py-2 px-3 ai-center">
+    <l-nav-bar class="topBar bg-black py-2 px-3 ai-center">
       <div
         slot="left"
         class="left d-flex"
@@ -23,9 +23,9 @@
           class="btn bg-primary"
         >立即下载</button>
       </div>
-    </nav-bar>
+    </l-nav-bar>
 
-    <tab-control
+    <l-tab-control
       ref="tabControl"
       color="#fff"
       :tabControls="tabControls"

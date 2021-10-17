@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "TabBar",
+  name: "LTabBar",
   components: {},
   data() {
     return {};

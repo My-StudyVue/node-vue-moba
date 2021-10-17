@@ -1,11 +1,11 @@
-import NavBar from "./navBar/NavBar.vue";//明细展示
-import TabBar from "./tabbar/TabBar.vue";//明细展示
-import TabBarItem from "./tabbar/TabBarItem.vue";//label
-import TabControl from "./tabControl/TabControl.vue";//label
+import LNavBar from "./navBar/NavBar.vue";
+import LTabBar from "./tabbar/TabBar.vue";
+import LTabBarItem from "./tabbar/TabBarItem.vue";
+import LTabControl from "./tabControl/TabControl.vue";
 
 export default {
-  NavBar,
-  TabBar,
-  TabBarItem,
-  TabControl,
+  LNavBar,
+  LTabBar,
+  LTabBarItem,
+  LTabControl,
 };

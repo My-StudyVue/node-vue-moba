@@ -1,29 +1,30 @@
 <template>
   <div class="card bg-white px-3 mt-3">
-    <nav-bar class="card-header">
+    <l-nav-bar class="card-header">
       <div
         slot="left"
         class="left d-flex"
       >
-        <i class="moba ico-news"></i>
-        <div class="fs-xl px-2">新闻资讯</div>
+        <!-- <i class="moba" :class="`ico-${icon}`"></i> -->
+        <i :class="headerLeft.icon"></i>
+        <div class="fs-xl px-2">{{headerLeft.title}}</div>
       </div>
       <div
         slot="right"
         class="right"
       >
-        <i class="moba ico-more"></i>
+        <i :class="headerRight.icon"></i>
       </div>
-    </nav-bar>
+    </l-nav-bar>
 
     <div class="card-body">
-      <tab-control
+      <l-tab-control
         ref="tabControl"
         :tabControls="tabControls"
         @tabClick="tabClick"
         class="tab-control"
       />
-
+      <!-- 内容 -->
       <slot name="container"></slot>
     </div>
   </div>
@@ -31,15 +32,38 @@
 
 <script>
 export default {
-  name: 'Card',
+  name: 'LCard',
   data() {
     return {
-      tabControls: ['热门', '新闻', '公告', '活动', '赛事']
+
     };
+  },
+  props: {
+    // 左边配置
+    headerLeft: {
+      type: Object,
+      defalut: () => {
+        return {}
+      },
+      required: true,// 必填
+    },
+    // 右边配置
+    headerRight: {
+      type: Object,
+      defalut: () => {
+        return {}
+      }
+    },
+    tabControls: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
   },
   methods: {
     tabClick(index) {
-      console.log(index);
+      this.$emit('tabClick', index)
     }
   }
 }

@@ -118,7 +118,7 @@ export default {
     },
     afterUpload(res) {
       // res 表示服务端的响应数据
-      // this.model.icon = res.url
+      // this.item.images = res.url
       /**
        * 当给对象加属性时,console.log 可以打印出来，但是没有更新到视图上
        * 

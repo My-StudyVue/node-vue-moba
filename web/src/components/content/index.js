@@ -1,5 +1,7 @@
-import Card from "./card/Card";
+import LCard from "./card/Card";
+import LSwiper from "./swiper/Swiper";
 
 export default {
-  Card,
+  LCard,
+  LSwiper,
 };

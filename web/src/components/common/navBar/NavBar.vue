@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: "LNavBar",
   components: {},
   data() {
     return {

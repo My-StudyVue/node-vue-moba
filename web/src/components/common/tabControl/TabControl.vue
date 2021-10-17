@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: "TabControl",
+  name: "LTabControl",
   props: {
     tabControls: {
       type: Array,

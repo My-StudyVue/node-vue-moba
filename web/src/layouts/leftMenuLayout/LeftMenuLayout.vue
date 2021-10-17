@@ -1,23 +1,17 @@
 <template>
   <div>
     <!-- 轮播图 -->
-    <swiper
-      ref="mySwiper"
-      :options="swiperOptions"
+    <l-swiper
+      :swiperOptions="swiperHomeOptions"
+      :swiperItemNum="3"
     >
-      <swiper-slide
-        v-for="(n,index) in 3"
-        :key="index"
-      ><img
-          class="w-100"
-          src="@/assets/img/swiper.jpeg"
-          alt=""
-        ></swiper-slide>
-      <div
-        class="swiper-pagination pagination-home text-right px-3 pb-2"
-        slot="pagination"
-      ></div>
-    </swiper>
+      <img
+        slot="container"
+        class="w-100"
+        src="@/assets/img/swiper.jpeg"
+        alt=""
+      >
+    </l-swiper>
 
     <!-- 图标导航 -->
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
@@ -37,46 +31,59 @@
       </div>
     </div>
 
-    <card>
+    <l-card
+      :tabControls="tabControls"
+      @tabClick="tabClick"
+      :headerLeft="headerLeft"
+      :headerRight="headerRight"
+    >
       <div slot="container">
+        <l-swiper
+          :swiperOptions="swiperOptions"
+          :swiperItemNum="5"
+          :showPagination="false"
+          class="pt-2"
+        >
+          <div
+            slot="container"
+            v-for="(n,i) in 5"
+            :key="i"
+            class="py-2"
+          >
+            <span>[热门]</span>
+            <span>｜</span>
+            <span>王者荣耀主播联赛今日开赛！</span>
+            <span>10/16</span>
 
+          </div>
+        </l-swiper>
       </div>
-    </card>
+    </l-card>
   </div>
 </template>
 <script>
+
+import cardConfig from './data/cardConfig'
+
 export default {
   name: 'index',
   data() {
     return {
-      swiperOptions: {
-        pagination: {
-          el: '.pagination-home',
-        },
-        loop: true,
-        parallax: true,
-        freeMode: true,
-        freeModeMomentum: true,
-        autoplay: {
-          delay: 2000,
-        },
-        effect: 'fade',
-        fadeEffect: {
-          crossFade: true,
-        },
-      }
+      ...cardConfig.data,
+
+      tabControls: ['热门', '新闻', '公告', '活动', '赛事'],
     };
   },
   computed: {
-    swiper() {
-      return this.$refs.mySwiper.swiper
-    }
+
   },
   mounted() {
 
   },
 
-  methods: {}
+  methods: {
+    ...cardConfig.methods,
+  }
 }
 
 </script>

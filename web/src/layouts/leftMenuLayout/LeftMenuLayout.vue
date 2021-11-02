@@ -18,16 +18,22 @@
       <div class="d-flex flex-wrap">
         <div
           class="nav-iconItem mb-3"
-          v-for="(n,index) in 10"
-          :key="index"
+          v-for="(n,i) in sprite"
+          :key="i"
         >
-          <i class="sprite sprite-news"></i>
-          <div class="py-2">爆料站</div>
+          <i
+            class="sprite"
+            :class="`sprite-${n.icon}`"
+          ></i>
+          <div class="py-2">{{n.name}}</div>
         </div>
       </div>
       <div class="bg-light py-2 fs-sm d-flex ai-center jc-center">
-        <i class="sprite sprite-arrow mr-2 mr-1"></i>
-        <span>收起</span>
+        <i
+          class="sprite mr-2 mr-1"
+          :class="[isPack?'sprite-arrow':'sprite-spread']"
+        ></i>
+        <span @click="packUp">{{isPack ? '收起' :'展开'}}</span>
       </div>
     </div>
 
@@ -39,10 +45,11 @@
     >
       <div slot="container">
         <l-swiper
+          ref="tabSwiper"
           :swiperOptions="swiperOptions"
           :swiperItemNum="5"
           :showPagination="false"
-          class="pt-2"
+          class="pt-2 new-category-news"
         >
           <div
             slot="container"
@@ -63,15 +70,13 @@
 </template>
 <script>
 
-import cardConfig from './data/cardConfig'
+import config from './data/config'
 
 export default {
   name: 'index',
   data() {
     return {
-      ...cardConfig.data,
-
-      tabControls: ['热门', '新闻', '公告', '活动', '赛事'],
+      ...config.data,
     };
   },
   computed: {
@@ -82,7 +87,7 @@ export default {
   },
 
   methods: {
-    ...cardConfig.methods,
+    ...config.methods,
   }
 }
 
@@ -113,5 +118,10 @@ export default {
       border-right: none;
     }
   }
+}
+
+.new-category-news {
+  border-color: #1e96ab;
+  color: #1e96ab;
 }
 </style>

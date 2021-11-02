@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <swiper
-      ref="mySwiper"
-      :options="swiperOptions"
+  <swiper
+    ref="mySwiper"
+    :options="swiperOptions"
+  >
+    <swiper-slide
+      v-for="(n,i) in swiperItemNum"
+      :key="i"
     >
-      <swiper-slide
-        v-for="(n,i) in swiperItemNum"
-        :key="i"
-      >
-        <!-- 内容 -->
-        <slot name="container"></slot>
-      </swiper-slide>
-      <div
-        v-if="showPagination"
-        class="swiper-pagination pagination-home text-right px-3 pb-2"
-        slot="pagination"
-      ></div>
-    </swiper>
-  </div>
+      <!-- 内容 -->
+      <slot name="container"></slot>
+    </swiper-slide>
+    <div
+      v-if="showPagination"
+      class="swiper-pagination pagination-home text-right px-3 pb-2"
+      slot="pagination"
+    ></div>
+  </swiper>
 </template>
 
 <script>

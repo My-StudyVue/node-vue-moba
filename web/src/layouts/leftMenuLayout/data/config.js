@@ -1,5 +1,12 @@
+import domain from '../domain/domain'
+
 const config = {
   data: {
+    currentIndex: 0,
+    isPack: false,
+    sprite: domain,
+    tabControls: ['热门', '新闻', '公告', '活动', '赛事'],
+
     headerLeft: {
       icon: 'moba ico-news',
       title: '新闻资讯',
@@ -29,12 +36,24 @@ const config = {
       pagination: {
         el: '.swiper-pagination',
       },
+      on: {
+        init: function () {
+          // console.log('swiper initialized');
+        },
+        slideChangeTransitionEnd: () => {
+          console.log('swiper initialized');
+          console.log(this)
+        }
+      }
     },
   },
   methods: {
     tabClick(index) {
-      console.log(index);
-    }
+      this.currentIndex = index
+    },
+    packUp() {
+      this.isPack = !this.isPack
+    },
   }
 }
 

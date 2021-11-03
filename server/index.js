@@ -11,6 +11,10 @@ app.use(express.json())
 // 跨域
 app.use(require('cors')())
 
+app.get('/', (req, res) => {
+  res.send('ok')
+})
+
 /**
  * 静态文件托管 express.static
  */

@@ -40,13 +40,13 @@ module.exports = (app, express) => {
     // 放中间键里
 
     // 显示新增列表
-    // const items = await Category.find().limit(10)
-    // const items = await Mondel.find().populate('parent').limit(10)
+    // const items = await Category.find().limit(100)
+    // const items = await Mondel.find().populate('parent').limit(100)
     const queryOptions = {}
     if (req.Mondel.modelName === 'Category') {
       queryOptions.populate = 'parent'
     }
-    const items = await req.Mondel.find().setOptions(queryOptions).limit(10)
+    const items = await req.Mondel.find().setOptions(queryOptions).limit(100)
 
     /**
      * populate 表示关联字段 取出/查出

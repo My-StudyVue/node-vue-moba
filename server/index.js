@@ -16,11 +16,13 @@ app.use(require('cors')())
  */
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
-// 配置路由
-require('./router/admin')(app, express)
-
 // 引用数据库
 require('./plugins/db')(app)
+
+// 配置路由
+require('./router/admin')(app, express)
+require('./router/web')(app, express)
+
 
 app.listen('3000', () => {
   console.log('http://localhost:3000');

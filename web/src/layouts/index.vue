@@ -65,6 +65,12 @@ export default {
   padding: 0.2rem 0.6rem;
 }
 
+.topBar {
+  position: sticky; //吸顶
+  top: 0;
+  z-index: 999;
+}
+
 .nav-bar {
   .left,
   .right {

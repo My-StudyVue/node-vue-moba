@@ -898,6 +898,50 @@ export default {
 
 ### 9.首页新闻资讯
 
+#### 虚拟字段(virtual)设置
+
+>不会保存到数据库，但是可以根据这个字段查找数据库中的数据
+
+##### 使用
+
+- 模型中定义虚拟字段
+
+  ```js
+  schema.virtual('children', { //定义虚拟字段
+    localField: '_id', //内键 ---> 主表关联从表parentId
+    foreignField: 'parent', //外键 主键 ----> 主表id
+    justOne: false, //只查询一条数据
+    ref: 'Category' //关联模型
+  })
+  ```
+
+- 路由中关联虚拟字段
+
+  >populate 关联
+
+  ```js
+  const parent = await Category.findOne({
+    name: '新闻分类'
+  }).populate({
+    /**
+      * populate 关联
+      * 
+      * path 需要关联的子分类
+      * 
+      * <弊端: populate不能控制每个分类下面的每一个新闻下显示很多条，只能控制总数>
+      */
+    path: 'children',
+    populate: {
+    path: 'newsList'
+   }
+  }).lean()
+  //lean 属性 转换为JS Object格式
+  ```
+
+##### 弊端
+
+>populate不能控制chilren下面的每一个newList下显示很多条，只能控制chilren 下面的总数
+
 ### 10.新闻详情页
 
 ### 11.首页英雄列表

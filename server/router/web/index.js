@@ -34,5 +34,27 @@ module.exports = (app, express) => {
     res.send(newsList)
   })
 
+
+  router.get('/news/list', async (req, res) => {
+    const parent = await Category.findOne({
+      name: '新闻分类'
+    }).populate({
+      /**
+       * populate 关联
+       * 
+       * path 需要关联的子分类
+       * 
+       * <弊端: populate不能控制chilren下面的每一个newList下显示很多条，只能控制chilren 下面的总数>
+       */
+      path: 'children',
+      populate: {
+        path: 'newsList'
+      }
+    }).lean()
+    //lean 属性 转换为JS Object格式
+
+    res.send(parent)
+  })
+
   app.use('/web/api', router)
 }

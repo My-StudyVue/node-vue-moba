@@ -1037,6 +1037,8 @@ $$('.hero-nav > li').map((li,i) => {
 
 ##### 获取英雄列表
 
+>数据需要转成 json          JSON.stringify() ----> 进行转换
+
 ```js
 $$('.hero-nav > li').map((li,i) => {
 	return { 

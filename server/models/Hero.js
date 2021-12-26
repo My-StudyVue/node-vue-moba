@@ -48,4 +48,5 @@ const schema = new mongoose.Schema({
   ],
 })
 
-module.exports = mongoose.model('Hero', schema)
+// module.exports = mongoose.model('Hero', schema) // 第三个参数 collection:'集合名字,默认是集合名字小写加s' 也就是表名
+module.exports = mongoose.model('Hero', schema, 'heroes')

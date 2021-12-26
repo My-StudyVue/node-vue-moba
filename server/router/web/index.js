@@ -35,6 +35,7 @@ module.exports = (app, express) => {
   })
 
 
+  //新闻列表接口
   router.get('/news/list', async (req, res) => {
     // const parent = await Category.findOne({
     //   name: '新闻分类'
@@ -104,6 +105,9 @@ module.exports = (app, express) => {
 
     res.send(cats)
   })
+
+
+  //导入影响数据
 
   app.use('/web/api', router)
 }

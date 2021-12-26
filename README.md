@@ -1019,9 +1019,37 @@ export default {
    res.send(cats)
    ```
 
-### 10.新闻详情页
+### 10.首页英雄列表
 
-### 11.首页英雄列表
+#### 利用浏览器console 爬取数据
+
+>根据dom 查询元素             $$ -------> 返回的是一个数组
+
+##### 获取导航栏数据
+
+```js
+$$('.hero-nav > li').map((li,i) => {
+	return { 
+		categoryName:li.innerText,heroes
+	}
+})
+```
+
+##### 获取英雄列表
+
+```js
+$$('.hero-nav > li').map((li,i) => {
+	return { 
+		categoryName:li.innerText,
+		heroes:$$('li',$$('.hero-list')[i]).map(el => ({
+    		name:$$('h3',el)[0].innerHTML,
+    		avatar:$$('img',el)[0].src
+		}))
+	}
+})
+```
+
+### 11.新闻详情页
 
 ### 12.英雄详情页
 

@@ -36,24 +36,73 @@ module.exports = (app, express) => {
 
 
   router.get('/news/list', async (req, res) => {
+    // const parent = await Category.findOne({
+    //   name: '新闻分类'
+    // }).populate({
+    //   /**
+    //    * populate 关联
+    //    * 
+    //    * path 需要关联的子分类
+    //    * 
+    //    * <弊端: populate不能控制chilren下面的每一个newList下显示很多条，只能控制chilren 下面的总数>
+    //    */
+    //   path: 'children',
+    //   populate: {
+    //     path: 'newsList'
+    //   }
+    // }).lean()
+    // //lean 属性 转换为JS Object格式
+
+    /**
+     * 聚合查询 aggregate
+     * 
+     * 聚合查询里面的查询叫 聚合管道
+     */
     const parent = await Category.findOne({
       name: '新闻分类'
-    }).populate({
-      /**
-       * populate 关联
-       * 
-       * path 需要关联的子分类
-       * 
-       * <弊端: populate不能控制chilren下面的每一个newList下显示很多条，只能控制chilren 下面的总数>
-       */
-      path: 'children',
-      populate: {
-        path: 'newsList'
+    })
+    const cats = await Category.aggregate([
+      { $match: { parent: parent._id } },// 查询到相关数据 需要关联主表id
+      {
+        $lookup: { //外链接
+          from: 'articles',// 关联的表的集合
+          localField: '_id',
+          foreignField: 'categories',
+          as: 'newsList',// 取名
+        }
+      },// 达到populate 嵌套的效果
+      {
+        /**
+         * addFields 本意添加字段，
+         *           也可用来修改字段
+         */
+        $addFields: {
+          newsList: {
+            $slice: ['$newsList', 5], // 需要筛选的字段 和 筛选的个数
+          },
+        }
       }
-    }).lean()
-    //lean 属性 转换为JS Object格式
+    ])
+    // { $match: { parent: parent._id } } 写法也可以写成where 条件查询形式
+    // const cats = await Category.find().where({
+    //   parent: parent
+    // }).lean()
 
-    res.send(parent)
+    const subCats = cats.map(v => v._id)
+    cats.unshift({
+      name: '热门',
+      newsList: await Article.find().where({
+        categories: { $in: subCats } //$in表示 筛选出字段值等于制定数组中的所有值
+      }).populate('categories').limit(5).lean()
+    })//unshift 往当前增加数据
+
+    cats.forEach(cat => {
+      cat.newsList.forEach(news => {
+        news.categoryName = cat.name === '热门' ? news.categories[0].name : cat.name
+      })
+    })
+
+    res.send(cats)
   })
 
   app.use('/web/api', router)

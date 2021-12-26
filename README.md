@@ -942,6 +942,83 @@ export default {
 
 >populate不能控制chilren下面的每一个newList下显示很多条，只能控制chilren 下面的总数
 
+#### 聚合查询 aggregate
+
+>一种查询（[SQL](https://baike.baidu.com/item/SQL) 语句），它通过包含一个[聚合函数](https://baike.baidu.com/item/聚合函数)（如 Sum 或 Avg ）来汇总来自多个行的信息。
+
+##### 聚合管道
+
+>聚合查询里面的查询叫 聚合管道,以流水线的方式查询
+>
+> 
+>
+>作用：
+>
+>1. 对文档“过滤” ----->  进行筛选
+>2. 对文档“变换” ------> 改变输出形式
+>
+>详情 ：https://www.cnblogs.com/shanyou/p/3494854.html
+
+##### 使用
+
+1. 达到 **虚拟字段设置**同样效果
+
+   ```js
+   // { $match: { parent: parent._id } } 写法也可以写成where 条件查询形式
+   const cats = await Category.find().where({
+     parent: parent
+   }).lean()
+   ```
+
+2. 实现 当前功能需求
+
+   ```js
+   /**
+     * 聚合查询 aggregate
+     * 
+     * 聚合查询里面的查询叫 聚合管道
+     */
+   const parent = await Category.findOne({
+     name: '新闻分类'
+   })
+   const cats = await Category.aggregate([
+     { $match: { parent: parent._id } },// 查询到相关数据 需要关联主表id
+     {
+       $lookup: { //外链接
+         from: 'articles',// 关联的表的集合
+         localField: '_id',
+         foreignField: 'categories',
+         as: 'newsList',// 取名
+        }
+     },// 达到populate 嵌套的效果
+     {
+       /**
+         * addFields 本意添加字段，
+         *           也可用来修改字段
+         */
+       $addFields: {
+         newsList: {
+           $slice: ['$newsList', 5], // 需要筛选的字段 和 筛选的个数
+         },
+       }
+     }
+   ])
+   const subCats = cats.map(v => v._id)
+   cats.unshift({
+     name: '热门',
+     newsList: await Article.find().where({
+       categories: { $in: subCats } //$in表示 筛选出字段值等于制定数组中的所有值
+     }).populate('categories').limit(5).lean()
+   })//unshift 往当前增加数据
+   
+   cats.forEach(cat => {
+     cat.newsList.forEach(news => {
+       news.categoryName = cat.name === '热门' ? news.categories[0].name : cat.name
+     })
+   })
+   res.send(cats)
+   ```
+
 ### 10.新闻详情页
 
 ### 11.首页英雄列表

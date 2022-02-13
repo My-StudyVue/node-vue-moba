@@ -25,7 +25,25 @@
         class="tab-control"
       />
       <!-- 内容 -->
-      <slot name="container"></slot>
+      <l-swiper
+        ref="tabSwiper"
+        :swiperOptions="swiperOptions"
+        :swiperList="swiperList"
+        :showPagination="false"
+        class="pt-2 new-category-news"
+      >
+        <template #container="{swiperItem}">
+          <div
+            v-for="(categoryItem,index) in swiperItem"
+            :key="index"
+          >
+            <slot
+              name="items"
+              :categoryItem="categoryItem"
+            ></slot>
+          </div>
+        </template>
+      </l-swiper>
     </div>
   </div>
 </template>
@@ -35,8 +53,15 @@ export default {
   name: 'LCard',
   data() {
     return {
-
+      tabControls: [],
+      swiperList: [],
     };
+  },
+  watch: {
+    list(val) {
+      this.tabControls = val.map(item => item.name)
+      this.swiperList = val.map(item => item.newsList)
+    },
   },
   props: {
     // 左边配置
@@ -54,10 +79,17 @@ export default {
         return {}
       }
     },
-    tabControls: {
+    list: {
       type: Array,
       default() {
         return []
+      }
+    },
+    // 滑动配置
+    swiperOptions: {
+      type: Object,
+      defalut: () => {
+        return {}
       }
     },
   },
@@ -73,5 +105,10 @@ export default {
 .nav-bar {
   height: 44px;
   line-height: 44px;
+}
+
+.new-category-news {
+  border-color: #1e96ab;
+  color: #1e96ab;
 }
 </style>

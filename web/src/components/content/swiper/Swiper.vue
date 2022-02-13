@@ -4,11 +4,14 @@
     :options="swiperOptions"
   >
     <swiper-slide
-      v-for="(n,i) in swiperItemNum"
+      v-for="(swiperItem,i) in swiperList"
       :key="i"
     >
       <!-- 内容 -->
-      <slot name="container"></slot>
+      <slot
+        name="container"
+        :swiperItem="swiperItem"
+      ></slot>
     </swiper-slide>
     <div
       v-if="showPagination"
@@ -33,10 +36,12 @@ export default {
         return {}
       }
     },
-    // 循环个数
-    swiperItemNum: {
-      type: Number || String,
-      defalut: 1 || '1',
+    // 循环数组
+    swiperList: {
+      type: Array,
+      defalut: () => {
+        return []
+      }
     },
     // 是否显示圆点器
     showPagination: {

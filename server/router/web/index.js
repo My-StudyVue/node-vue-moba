@@ -145,5 +145,33 @@ module.exports = (app, express) => {
     res.send(await Hero.find())
   })
 
+
+  //英雄列表接口
+  router.get('/heroes/list', async (req, res) => {
+    const parent = await Category.findOne({
+      name: '英雄分类'
+    })
+    const cats = await Category.aggregate([
+      { $match: { parent: parent._id } },// 查询到相关数据 需要关联主表id
+      {
+        $lookup: { //外链接
+          from: 'heroes',// 关联的表的集合
+          localField: '_id',
+          foreignField: 'categories',
+          as: 'heroList',// 取名
+        }
+      },
+    ])
+
+    const subCats = cats.map(v => v._id)
+    cats.unshift({
+      name: '热门',
+      heroList: await Hero.find().where({
+        categories: { $in: subCats } //$in表示 筛选出字段值等于制定数组中的所有值
+      }).limit(10).lean()
+    })//unshift 往当前增加数据
+
+    res.send(cats)
+  })
   app.use('/web/api', router)
 }

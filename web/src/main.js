@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import http from './network/request'
 
 Vue.config.productionTip = false
+Vue.prototype.$http = http
 
 // 全局使用自定义组件
 import ui from '@/components/index.js';

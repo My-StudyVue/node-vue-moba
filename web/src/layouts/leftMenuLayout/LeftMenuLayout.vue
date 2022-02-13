@@ -3,14 +3,16 @@
     <!-- 轮播图 -->
     <l-swiper
       :swiperOptions="swiperHomeOptions"
-      :swiperItemNum="3"
+      :swiperList="swiperList"
     >
-      <img
-        slot="container"
-        class="w-100"
-        src="@/assets/img/swiper.jpeg"
-        alt=""
-      >
+      <template #container="{swiperItem}">
+        <img
+          slot="container"
+          class="w-100"
+          :src="swiperItem.imageUrl"
+          alt=""
+        >
+      </template>
     </l-swiper>
 
     <!-- 图标导航 -->
@@ -38,9 +40,24 @@
     </div>
 
     <l-card
-      :tabControls="tabControls"
+      :list="newsList"
+      :swiperOptions="swiperOptions"
       @tabClick="tabClick"
-      :headerLeft="headerLeft"
+      :headerLeft="headerLeftNews"
+      :headerRight="headerRight"
+    >
+      <template #items="{categoryItem}">
+        <span>{{categoryItem.categoryName}}</span>
+        <span>｜</span>
+        <span class="">{{categoryItem.title}}</span>
+        <span class="right">{{categoryItem.updatedAt}}</span>
+      </template>
+    </l-card>
+
+    <!-- <l-card
+      :tabControls="tabControlsHero"
+      @tabClick="tabClick"
+      :headerLeft="headerLeftHero"
       :headerRight="headerRight"
     >
       <div slot="container">
@@ -65,7 +82,7 @@
           </div>
         </l-swiper>
       </div>
-    </l-card>
+    </l-card> -->
   </div>
 </template>
 <script>
@@ -82,12 +99,23 @@ export default {
   computed: {
 
   },
-  mounted() {
-
+  created() {
+    this.fetchNewsCats();
+    this.fetchHeroCats()
   },
-
   methods: {
     ...config.methods,
+
+    async fetchNewsCats() {
+      const res = await this.$http.get("/news/list")
+      this.newsList = res.data
+      console.log(this.newsList, '---this.newsList');
+    },
+    async fetchHeroCats() {
+      const res = await this.$http.get("/heroes/list")
+      this.tabControlsHero = res.data.map(data => data.name)
+      this.heroList = res.data.map(data => data.newsList)
+    },
   }
 }
 
@@ -120,8 +148,8 @@ export default {
   }
 }
 
-.new-category-news {
-  border-color: #1e96ab;
-  color: #1e96ab;
-}
+// .new-category-news {
+//   border-color: #1e96ab;
+//   color: #1e96ab;
+// }
 </style>

@@ -20,28 +20,24 @@
     <div class="card-body">
       <l-tab-control
         ref="tabControl"
-        :tabControls="tabControls"
+        :tabControlsOption="tabControlsOption"
         @tabClick="tabClick"
         class="tab-control"
       />
+      {{tabControlsOption.currentIndex}}--{{curIndex}}
       <!-- 内容 -->
       <l-swiper
         ref="tabSwiper"
         :swiperOptions="swiperOptions"
         :swiperList="swiperList"
         :showPagination="false"
-        class="pt-2 new-category-news"
+        class="pt-2"
       >
         <template #container="{swiperItem}">
-          <div
-            v-for="(categoryItem,index) in swiperItem"
-            :key="index"
-          >
-            <slot
-              name="items"
-              :categoryItem="categoryItem"
-            ></slot>
-          </div>
+          <slot
+            name="items"
+            :swiperItem="swiperItem"
+          ></slot>
         </template>
       </l-swiper>
     </div>
@@ -53,13 +49,16 @@ export default {
   name: 'LCard',
   data() {
     return {
-      tabControls: [],
+      tabControlsOption: {
+        tabList: [],
+        currentIndex: this.curIndex
+      },
       swiperList: [],
     };
   },
   watch: {
     list(val) {
-      this.tabControls = val.map(item => item.name)
+      this.tabControlsOption.tabList = val.map(item => item.name)
       this.swiperList = val.map(item => item.newsList)
     },
   },
@@ -92,10 +91,20 @@ export default {
         return {}
       }
     },
+    // 当前下标
+    curIndex: {
+      type: Number,
+      default: 0
+    },
   },
   methods: {
     tabClick(index) {
+      this.currentIndex = index
+      // this.$emit("update:currentIndex", index)
       this.$emit('tabClick', index)
+    },
+    slideChange() {
+      return this.$refs.tabSwiper.slideChange()
     }
   }
 }
@@ -105,10 +114,5 @@ export default {
 .nav-bar {
   height: 44px;
   line-height: 44px;
-}
-
-.new-category-news {
-  border-color: #1e96ab;
-  color: #1e96ab;
 }
 </style>

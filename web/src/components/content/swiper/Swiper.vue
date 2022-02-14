@@ -52,7 +52,14 @@ export default {
   computed: {
     swiper() {
       return this.$refs.mySwiper.swiper
+    },
+    // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
+    slideChange() {
+      return this.swiper.activeIndex
     }
+  },
+  methods: {
+
   },
 }
 

@@ -1,10 +1,10 @@
 <template>
   <div class="tab-control d-flex jc-between pb-1">
     <div
-      v-for="(item,index) in tabControls"
+      v-for="(item,index) in tabControlsOption.tabList"
       :key="index"
       class="tab-control-item"
-      :style="[{ borderBottom: index === currentIndex ? `3px solid ${color}` : ''},{ color: index === currentIndex ? color : ''}] "
+      :style="[{ borderBottom: index === tabControlsOption.currentIndex ? `3px solid ${color}` : ''},{ color: index === tabControlsOption.currentIndex ? color : ''}] "
       @click="itemClick(index)"
     >
       <!-- tag="div"  router-link 改成 span,不是a 标签-->
@@ -21,25 +21,31 @@
 export default {
   name: "LTabControl",
   props: {
-    tabControls: {
-      type: Array,
+    tabControlsOption: {
+      type: Object,
       default() {
-        return []
+        return {
+          tabList: [],
+          currentIndex: 0,
+        }
       }
     },
     color: {
       type: String,
       default: '#db9e3f'
-    }
+    },
+  },
+  created() {
+    this.$set(this.tabControlsOption, 'currentIndex', 0)
   },
   data() {
     return {
-      currentIndex: 0,
+
     }
   },
   methods: {
     itemClick(index) {
-      this.currentIndex = index
+      this.$set(this.tabControlsOption, 'currentIndex', index)
       this.$emit('tabClick', index)
     }
   }

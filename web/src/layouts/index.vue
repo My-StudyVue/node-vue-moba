@@ -28,8 +28,7 @@
     <l-tab-control
       ref="tabControl"
       color="#fff"
-      :tabControls="tabControls"
-      @tabClick="tabClick"
+      :tabControlsOption="tabControlsOption"
       class="tab-control bg-primary pb-2 text-white"
     />
     <router-view />
@@ -42,15 +41,15 @@ export default {
   name: 'index',
   data() {
     return {
-      tabControls: ['首页', '攻略中心', '赛事中心', 'IP新游']
+      tabControlsOption: {
+        tabList: ['首页', '攻略中心', '赛事中心', 'IP新游'],
+      }
     }
   },
   components: {
   },
   methods: {
-    tabClick(index) {
-      console.log(index);
-    }
+
   },
 }
 </script>

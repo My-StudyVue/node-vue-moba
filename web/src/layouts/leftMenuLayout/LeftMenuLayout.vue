@@ -43,18 +43,27 @@
       :list="newsList"
       :swiperOptions="swiperOptions"
       @tabClick="tabClick"
+      :curIndex="curIndex"
       :headerLeft="headerLeftNews"
       :headerRight="headerRight"
+      ref="tabCard"
     >
-      <template #items="{categoryItem}">
-        <span>{{categoryItem.categoryName}}</span>
-        <span>｜</span>
-        <span class="">{{categoryItem.title}}</span>
-        <span class="right">{{categoryItem.updatedAt}}</span>
+      <template #items="{swiperItem}">
+        {{curIndex}}
+        <div
+          v-for="(categoryItem,index) in swiperItem"
+          :key="index"
+          class="py-2 fs-lg d-flex"
+        >
+          <span class="text-info">{{categoryItem.categoryName}}</span>
+          <span class="px-2">｜</span>
+          <span class="flex-1 text-dark">{{categoryItem.title}}</span>
+          <span>{{categoryItem.updatedAt}}</span>
+        </div>
       </template>
     </l-card>
 
-    <!-- <l-card
+    <l-card
       :tabControls="tabControlsHero"
       @tabClick="tabClick"
       :headerLeft="headerLeftHero"
@@ -66,7 +75,7 @@
           :swiperOptions="swiperOptions"
           :swiperItemNum="5"
           :showPagination="false"
-          class="pt-2 new-category-news"
+          class="pt-2"
         >
           <div
             slot="container"
@@ -78,16 +87,18 @@
             <span>｜</span>
             <span>王者荣耀主播联赛今日开赛！</span>
             <span>10/16</span>
-
           </div>
         </l-swiper>
       </div>
-    </l-card> -->
+    </l-card>
   </div>
 </template>
 <script>
 
 import config from './data/config'
+
+/* eslint no-undef: "error" */
+let vm = null;
 
 export default {
   name: 'index',
@@ -100,6 +111,9 @@ export default {
 
   },
   created() {
+    /* eslint no-undef: "error" */
+    vm = this;
+
     this.fetchNewsCats();
     this.fetchHeroCats()
   },
@@ -147,9 +161,4 @@ export default {
     }
   }
 }
-
-// .new-category-news {
-//   border-color: #1e96ab;
-//   color: #1e96ab;
-// }
 </style>

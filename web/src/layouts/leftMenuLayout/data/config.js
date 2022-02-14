@@ -2,7 +2,7 @@ import domain from '../domain/domain'
 
 const config = {
   data: {
-    currentIndex: 0,
+    curIndex: 0,
     isPack: false,
     sprite: domain,
     swiperList: [
@@ -61,19 +61,22 @@ const config = {
         el: '.swiper-pagination',
       },
       on: {
-        init: function () {
+        init() {
           // console.log('swiper initialized');
         },
-        slideChangeTransitionEnd: () => {
-          console.log('swiper initialized');
-          console.log(this)
-        }
+        // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
+        slideChange() {
+          // const { activeIndex } = this
+          // vm.$set(vm.data, 'curIndex', activeIndex)
+          // console.log('swiper initialized', this.activeIndex, vm, vm.data.curIndex);
+          console.log('swiper initialized', vm);
+        },
       }
     },
   },
   methods: {
     tabClick(index) {
-      this.currentIndex = index
+      this.curIndex = index
     },
     packUp() {
       this.isPack = !this.isPack

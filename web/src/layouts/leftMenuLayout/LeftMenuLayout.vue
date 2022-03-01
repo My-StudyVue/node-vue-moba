@@ -49,7 +49,6 @@
       ref="tabCard"
     >
       <template #items="{swiperItem}">
-        {{curIndex}}
         <div
           v-for="(categoryItem,index) in swiperItem"
           :key="index"
@@ -57,13 +56,13 @@
         >
           <span class="text-info">{{categoryItem.categoryName}}</span>
           <span class="px-2">｜</span>
-          <span class="flex-1 text-dark">{{categoryItem.title}}</span>
-          <span>{{categoryItem.updatedAt}}</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{categoryItem.title}}</span>
+          <span class="text-grey fs=sm">{{categoryItem.updatedAt|date}}</span>
         </div>
       </template>
     </l-card>
 
-    <l-card
+    <!-- <l-card
       :tabControls="tabControlsHero"
       @tabClick="tabClick"
       :headerLeft="headerLeftHero"
@@ -90,10 +89,11 @@
           </div>
         </l-swiper>
       </div>
-    </l-card>
+    </l-card> -->
   </div>
 </template>
 <script>
+import dayjs from 'dayjs'
 
 import config from './data/config'
 
@@ -105,17 +105,37 @@ export default {
   data() {
     return {
       ...config.data,
+      swiperOptions: {
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        on: {
+          init() {
+            console.log('swiper initialized');
+          },
+          // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
+          slideChange() {
+            const { activeIndex } = this
+            vm.curIndex = activeIndex
+          },
+        }
+      },
     };
   },
   computed: {
 
+  },
+  filters: {
+    date(val) {
+      return dayjs(val).format('MM/DD')
+    }
   },
   created() {
     /* eslint no-undef: "error" */
     vm = this;
 
     this.fetchNewsCats();
-    this.fetchHeroCats()
+    this.fetchHeroCats();
   },
   methods: {
     ...config.methods,

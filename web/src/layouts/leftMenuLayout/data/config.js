@@ -1,6 +1,7 @@
 import domain from '../domain/domain'
 
 const config = {
+  name: "config",
   data: {
     curIndex: 0,
     isPack: false,
@@ -56,27 +57,28 @@ const config = {
       },
     },
 
-    swiperOptions: {
-      pagination: {
-        el: '.swiper-pagination',
-      },
-      on: {
-        init() {
-          // console.log('swiper initialized');
-        },
-        // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
-        slideChange() {
-          // const { activeIndex } = this
-          // vm.$set(vm.data, 'curIndex', activeIndex)
-          // console.log('swiper initialized', this.activeIndex, vm, vm.data.curIndex);
-          console.log('swiper initialized', vm);
-        },
-      }
-    },
+    // swiperOptions: {
+    //   pagination: {
+    //     el: '.swiper-pagination',
+    //   },
+    //   on: {
+    //     init() {
+    //       // console.log('swiper initialized');
+    //     },
+    //     // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
+    //     slideChange() {
+    //       // const { activeIndex } = this
+    //       // vm.$set(vm.data, 'curIndex', activeIndex)
+    //       // console.log('swiper initialized', this.activeIndex, vm, vm.data.curIndex);
+    //       console.log('swiper initialized', vm);
+    //     },
+    //   }
+    // },
   },
   methods: {
     tabClick(index) {
       this.curIndex = index
+      this.$refs.tabCard.slideTo(index)
     },
     packUp() {
       this.isPack = !this.isPack

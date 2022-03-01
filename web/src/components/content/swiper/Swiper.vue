@@ -51,15 +51,14 @@ export default {
   },
   computed: {
     swiper() {
-      return this.$refs.mySwiper.swiper
+      return this.$refs.mySwiper.$swiper
     },
-    // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
-    slideChange() {
-      return this.swiper.activeIndex
-    }
   },
   methods: {
-
+    // 控制Swiper切换到指定slide
+    slideTo(index, speed, runCallbacks) {
+      this.swiper.slideTo(index, speed, runCallbacks)
+    }
   },
 }
 

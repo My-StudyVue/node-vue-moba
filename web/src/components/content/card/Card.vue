@@ -24,7 +24,6 @@
         @tabClick="tabClick"
         class="tab-control"
       />
-      {{tabControlsOption.currentIndex}}--{{curIndex}}
       <!-- 内容 -->
       <l-swiper
         ref="tabSwiper"
@@ -60,6 +59,9 @@ export default {
     list(val) {
       this.tabControlsOption.tabList = val.map(item => item.name)
       this.swiperList = val.map(item => item.newsList)
+    },
+    curIndex(val) {
+      this.$set(this.tabControlsOption, 'currentIndex', val)
     },
   },
   props: {
@@ -99,13 +101,13 @@ export default {
   },
   methods: {
     tabClick(index) {
-      this.currentIndex = index
-      // this.$emit("update:currentIndex", index)
+      this.tabControlsOption.currentIndex = index
       this.$emit('tabClick', index)
     },
-    slideChange() {
-      return this.$refs.tabSwiper.slideChange()
-    }
+    // 控制Swiper切换到指定slide
+    slideTo(index, speed, runCallbacks) {
+      return this.$refs.tabSwiper.slideTo(index, speed, runCallbacks)
+    },
   }
 }
 

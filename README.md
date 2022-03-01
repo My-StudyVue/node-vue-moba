@@ -1053,6 +1053,10 @@ $$('.hero-nav > li').map((li,i) => {
 
 ### 11.新闻详情页
 
+#### 时间处理的包 ---- dayjs
+
+- 中文官网  https://dayjs.fenxianglu.cn/
+
 ### 12.英雄详情页
 
 --------

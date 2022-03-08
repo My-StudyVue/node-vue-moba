@@ -30,20 +30,23 @@
           <div class="py-2">{{n.name}}</div>
         </div>
       </div>
-      <div class="bg-light py-2 fs-sm d-flex ai-center jc-center">
+      <div
+        class="bg-light py-2 fs-sm d-flex ai-center jc-center"
+        @click="packUp"
+      >
         <i
           class="sprite mr-2 mr-1"
           :class="[isPack?'sprite-arrow':'sprite-spread']"
         ></i>
-        <span @click="packUp">{{isPack ? '收起' :'展开'}}</span>
+        <span>{{isPack ? '收起' :'展开'}}</span>
       </div>
     </div>
 
     <l-card
       :list="newsList"
-      :swiperOptions="swiperOptions"
-      @tabClick="tabClick"
-      :curIndex="curIndex"
+      :swiperOptions="swiperOptionsNews"
+      @tabClick="tabClickNews"
+      :curIndex="curIndexNews"
       :headerLeft="headerLeftNews"
       :headerRight="headerRight"
       ref="tabCard"
@@ -62,34 +65,28 @@
       </template>
     </l-card>
 
-    <!-- <l-card
-      :tabControls="tabControlsHero"
-      @tabClick="tabClick"
+    <l-card
+      :list="heroList"
+      :swiperOptions="swiperOptionsHero"
+      @tabClick="tabClickHero"
+      :curIndex="curIndexHero"
       :headerLeft="headerLeftHero"
       :headerRight="headerRight"
+      ref="tabCard"
     >
-      <div slot="container">
-        <l-swiper
-          ref="tabSwiper"
-          :swiperOptions="swiperOptions"
-          :swiperItemNum="5"
-          :showPagination="false"
-          class="pt-2"
+      <template #items="{swiperItem}">
+        <div
+          v-for="(categoryItem,index) in swiperItem"
+          :key="index"
+          class="py-2 fs-lg d-flex"
         >
-          <div
-            slot="container"
-            v-for="(n,i) in 5"
-            :key="i"
-            class="py-2"
-          >
-            <span>[热门]</span>
-            <span>｜</span>
-            <span>王者荣耀主播联赛今日开赛！</span>
-            <span>10/16</span>
-          </div>
-        </l-swiper>
-      </div>
-    </l-card> -->
+          <span class="text-info">{{categoryItem.categoryName}}</span>
+          <span class="px-2">｜</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{categoryItem.title}}</span>
+          <span class="text-grey fs=sm">{{categoryItem.updatedAt|date}}</span>
+        </div>
+      </template>
+    </l-card>
   </div>
 </template>
 <script>
@@ -105,7 +102,7 @@ export default {
   data() {
     return {
       ...config.data,
-      swiperOptions: {
+      swiperOptionsNews: {
         pagination: {
           el: '.swiper-pagination',
         },
@@ -116,7 +113,22 @@ export default {
           // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
           slideChange() {
             const { activeIndex } = this
-            vm.curIndex = activeIndex
+            vm.curIndexNews = activeIndex
+          },
+        }
+      },
+      swiperOptionsHero: {
+        pagination: {
+          el: '.swiper-pagination',
+        },
+        on: {
+          init() {
+            console.log('swiper initialized');
+          },
+          // 当前Slide切换到另一个Slide时执行(activeIndex发生改变)
+          slideChange() {
+            const { activeIndex } = this
+            vm.curIndexHero = activeIndex
           },
         }
       },
@@ -143,12 +155,10 @@ export default {
     async fetchNewsCats() {
       const res = await this.$http.get("/news/list")
       this.newsList = res.data
-      console.log(this.newsList, '---this.newsList');
     },
     async fetchHeroCats() {
       const res = await this.$http.get("/heroes/list")
-      this.tabControlsHero = res.data.map(data => data.name)
-      this.heroList = res.data.map(data => data.newsList)
+      this.heroList = res.data
     },
   }
 }

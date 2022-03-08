@@ -14,12 +14,17 @@ const routes = [
   {
     path: '/',
     name: 'main',
-    component: () => import(/* webpackChunkName: "index" */ '../layouts/index.vue'),
+    component: () => import(/* webpackChunkName: "index" */ '@/layouts/index.vue'),
     children: [
       {
         path: '/',
         name: 'home',
-        component: () => import(/* webpackChunkName: "about" */ '../layouts/leftMenuLayout/LeftMenuLayout.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '@/pages/index.vue'),
+      },
+      {
+        path: '/',
+        name: 'article',
+        component: () => import(/* webpackChunkName: "about" */ '../pages/article/index.vue'),
       },
     ]
   },

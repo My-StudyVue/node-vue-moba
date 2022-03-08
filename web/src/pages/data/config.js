@@ -3,7 +3,8 @@ import domain from '../domain/domain'
 const config = {
   name: "config",
   data: {
-    curIndex: 0,
+    curIndexNews: 0,
+    curIndexHero: 0,
     isPack: false,
     sprite: domain,
     swiperList: [
@@ -22,10 +23,7 @@ const config = {
         imageUrl: require('@/assets/img/swiper3.jpeg'),
       },
     ],
-    tabControlsNew: [],
-    tabControlsHero: [],
     newsList: [],
-    newsAry: [],
     heroList: [],
 
     headerLeftNews: {
@@ -76,11 +74,21 @@ const config = {
     // },
   },
   methods: {
-    tabClick(index) {
-      this.curIndex = index
+    tabClickNews(index) {
+      this.curIndexNews = index
+      this.$refs.tabCard.slideTo(index)
+    },
+    tabClickHero(index) {
+      this.curIndexHero = index
       this.$refs.tabCard.slideTo(index)
     },
     packUp() {
+      if (!this.isPack) {
+        this.sprite = domain.slice(0, 4)
+      } else {
+        this.sprite = []
+        this.sprite.push(...domain)
+      }
       this.isPack = !this.isPack
     },
   }

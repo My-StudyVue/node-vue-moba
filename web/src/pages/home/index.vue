@@ -52,7 +52,9 @@
       ref="tabCard"
     >
       <template #items="{swiperItem}">
-        <div
+        <router-link
+          tag="div"
+          :to="`/articles/${categoryItem._id}`"
           v-for="(categoryItem,index) in swiperItem"
           :key="index"
           class="py-2 fs-lg d-flex"
@@ -61,7 +63,7 @@
           <span class="px-2">｜</span>
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{categoryItem.title}}</span>
           <span class="text-grey fs=sm">{{categoryItem.updatedAt|date}}</span>
-        </div>
+        </router-link>
       </template>
     </l-card>
 
@@ -169,9 +171,6 @@ export default {
     async fetchHeroCats() {
       const res = await this.$http.get("/heroes/list")
       this.heroList = res.data
-    },
-    toNewsDetail() {
-      this.$router.push({ path: '/article' })
     },
   }
 }

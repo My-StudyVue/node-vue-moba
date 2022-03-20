@@ -4,16 +4,9 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: '/',
-  //   redirect: {
-  //     name: 'comLogin'
-  //   }
-  // },
   {
     path: '/',
-    // name: 'main',
+    name: 'main',
     component: () => import(/* webpackChunkName: "index" */ '@/layouts/index.vue'),
     children: [
       {
@@ -25,6 +18,7 @@ const routes = [
         path: '/article/:id',
         name: 'article',
         component: () => import(/* webpackChunkName: "about" */ '@/pages/article/index.vue'),
+        props: true,
       },
     ]
   },

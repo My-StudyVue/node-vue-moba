@@ -54,7 +54,7 @@
       <template #items="{swiperItem}">
         <router-link
           tag="div"
-          :to="`/articles/${categoryItem._id}`"
+          :to="`/article/${categoryItem._id}`"
           v-for="(categoryItem,index) in swiperItem"
           :key="index"
           class="py-2 fs-lg d-flex"

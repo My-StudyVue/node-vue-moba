@@ -41,8 +41,8 @@
         <span>{{isPack ? '收起' :'展开'}}</span>
       </div>
     </div>
-
     <l-card
+      listKey="newsList"
       :list="newsList"
       :swiperOptions="swiperOptionsNews"
       @tabClick="tabClickNews"
@@ -66,6 +66,7 @@
     </l-card>
 
     <l-card
+      listKey="heroList"
       :list="heroList"
       :swiperOptions="swiperOptionsHero"
       @tabClick="tabClickHero"
@@ -76,14 +77,22 @@
     >
       <template #items="{swiperItem}">
         <div
-          v-for="(categoryItem,index) in swiperItem"
-          :key="index"
-          class="py-2 fs-lg d-flex"
+          class="d-flex flex-wrap"
+          style="margin:0 -0.5rem"
         >
-          <span class="text-info">{{categoryItem.categoryName}}</span>
-          <span class="px-2">｜</span>
-          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{categoryItem.title}}</span>
-          <span class="text-grey fs=sm">{{categoryItem.updatedAt|date}}</span>
+          <div
+            v-for="(heroItem,index) in swiperItem"
+            :key="index"
+            class="p-2 text-center"
+            style="width:20%"
+          >
+            <img
+              :src="heroItem.avatar"
+              class="w-100"
+              alt=""
+            >
+            <div>{{heroItem.name}}</div>
+          </div>
         </div>
       </template>
     </l-card>
@@ -121,6 +130,7 @@ export default {
         pagination: {
           el: '.swiper-pagination',
         },
+        autoHeight: true,
         on: {
           init() {
             console.log('swiper initialized');
@@ -159,6 +169,9 @@ export default {
     async fetchHeroCats() {
       const res = await this.$http.get("/heroes/list")
       this.heroList = res.data
+    },
+    toNewsDetail() {
+      this.$router.push({ path: '/article' })
     },
   }
 }

@@ -58,7 +58,7 @@ export default {
   watch: {
     list(val) {
       this.tabControlsOption.tabList = val.map(item => item.name)
-      this.swiperList = val.map(item => item.newsList)
+      this.swiperList = val.map(item => item[this.listKey])
     },
     curIndex(val) {
       this.$set(this.tabControlsOption, 'currentIndex', val)
@@ -84,6 +84,12 @@ export default {
       type: Array,
       default() {
         return []
+      }
+    },
+    listKey: {
+      type: String,
+      default() {
+        return ''
       }
     },
     // 滑动配置

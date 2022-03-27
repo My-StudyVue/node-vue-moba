@@ -284,3 +284,10 @@ $type in $spacing-types {
     background-position: 38.577% 52.076%;
   }
 }
+
+//borders
+@each $dir in (top, right, bottom, left) {
+  .border-#{$dir} {
+    border-#{$dir}: 1px solid $border-color;
+  }
+}

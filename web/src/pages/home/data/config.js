@@ -35,7 +35,7 @@ const config = {
       title: '英雄列表',
     },
     headerRight: {
-      icon: 'moba moba ico-more',
+      icon: 'moba ico-more',
     },
 
     swiperHomeOptions: {

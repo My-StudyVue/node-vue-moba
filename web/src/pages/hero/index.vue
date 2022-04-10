@@ -55,7 +55,7 @@
           <router-link
             tag="span"
             to="/"
-            class="text-grey fs-sm"
+            class="text-grey fs-sm pt-2"
           >
             皮肤：7 &gt;
           </router-link>
@@ -121,7 +121,122 @@
                   <p class="pt-2">小提示：{{currentSkill.tips}}</p>
                 </div>
               </div>
+            </div>
 
+            <div class="card bg-white px-3 mt-3 border-bottom hero-items">
+              <l-nav-bar class="card-header">
+                <div
+                  slot="left"
+                  class="left d-flex py-3"
+                >
+                  <i class="moba ico-news"></i>
+                  <strong class="fs-xl px-2">英雄关系</strong>
+                </div>
+              </l-nav-bar>
+              <div class="card-body pb-2">
+                <div class="fs-xl">顺风出装</div>
+                <div class="d-flex jc-around text-center mt-3">
+                  <div
+                    v-for="item in model.items1"
+                    :key="item.name"
+                  >
+                    <img
+                      :src="item.icon"
+                      alt=""
+                      class="icon"
+                    >
+                    <div class="fs-xs">{{item.name}}</div>
+                  </div>
+                </div>
+                <div class="border-bottom mt-3"></div>
+                <div class="fs-xl mt-3">逆风出装</div>
+                <div class="d-flex jc-around text-center mt-3">
+                  <div
+                    v-for="item in model.items2"
+                    :key="item.name"
+                  >
+                    <img
+                      :src="item.icon"
+                      alt=""
+                      class="icon"
+                    >
+                    <div class="fs-xs">{{item.name}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card bg-white px-3 mt-3 border-bottom">
+              <l-nav-bar class="card-header">
+                <div
+                  slot="left"
+                  class="left d-flex py-3"
+                >
+                  <i class="moba ico-news"></i>
+                  <strong class="fs-xl px-2">使用技巧</strong>
+                </div>
+              </l-nav-bar>
+              <div class="card-body pb-2">
+                <p class="fs-lg">{{model.usageTips}}</p>
+              </div>
+            </div>
+
+            <div class="card bg-white px-3 mt-3 border-bottom">
+              <l-nav-bar class="card-header">
+                <div
+                  slot="left"
+                  class="left d-flex py-3"
+                >
+                  <i class="moba ico-news"></i>
+                  <strong class="fs-xl px-2">对抗技巧</strong>
+                </div>
+              </l-nav-bar>
+              <div class="card-body pb-2">
+                <p class="fs-lg">{{model.battleTips}}</p>
+              </div>
+            </div>
+
+            <div class="card bg-white px-3 mt-3 border-bottom">
+              <l-nav-bar class="card-header">
+                <div
+                  slot="left"
+                  class="left d-flex py-3"
+                >
+                  <i class="moba ico-news"></i>
+                  <strong class="fs-xl px-2">团战思路</strong>
+                </div>
+              </l-nav-bar>
+              <div class="card-body pb-2">
+                <p class="fs-lg">{{model.teamTips}}</p>
+              </div>
+            </div>
+
+            <div class="card bg-white px-3 mt-3 border-bottom">
+              <l-nav-bar class="card-header">
+                <div
+                  slot="left"
+                  class="left d-flex py-3"
+                >
+                  <i class="moba ico-news"></i>
+                  <strong class="fs-xl px-2">英雄关系</strong>
+                </div>
+              </l-nav-bar>
+              <div class="card-body pb-2">
+                <div class="fs-xl">最佳搭档</div>
+                <div
+                  v-for="item in model.partners"
+                  :key="item.name"
+                  class="d-flex pt-3"
+                >
+                  <img
+                    :src="item.hero.avatar"
+                    alt=""
+                    height="50"
+                  >
+                  <p class="flex-1 ml-3">{{item.description}}</p>
+                </div>
+                <div class="border-bottom mt-3"></div>
+              </div>
             </div>
           </div>
         </swiper-slide>
@@ -229,6 +344,20 @@ export default {
     height: 65px;
     &.active {
       border-color: #db9e3f;
+      border-radius: 50%;
+    }
+  }
+}
+
+.card {
+  .nav-bar {
+    box-shadow: none;
+  }
+
+  &.hero-items {
+    img.icon {
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
     }
   }

@@ -17,6 +17,7 @@
 $colors:("primary": #db9e3f,
   "info": #4b67af,
   "blue": #4394e4,
+  "blue-1": #1f3694,
   "white": #fff,
   "light": #f9f9f9,
   "light-1": #d4d9de,
@@ -24,6 +25,7 @@ $colors:("primary": #db9e3f,
   "grey-1": #666,
   "dark-1": #343440,
   "dark": #222,
+  "danger": #791a17,
   "black": #000,
 );
 
@@ -45,12 +47,12 @@ $font-sizes:(xxs:0.6154,
 
 /** flex 布局 */
 $flex-jc:(start: flex-start,
-  ed: flex-ed,
+  end: flex-end,
   center: center,
   between: space-between,
   around: space-around);
 $flex-ai:(start: flex-start,
-  ed: flex-ed,
+  end: flex-end,
   center: center,
   stretch: stretch);
 

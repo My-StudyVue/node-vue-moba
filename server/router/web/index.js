@@ -188,7 +188,9 @@ module.exports = (app, express) => {
 
   // 英雄详情接口
   router.get('/heroes/:id', async (req, res) => {
-    const data = await Hero.findById(req.params.id).lean()
+    const data = await Hero.findById(req.params.id)
+      .populate('categories') //用id关联分类
+      .lean()
     res.send(data)
   })
 

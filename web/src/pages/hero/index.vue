@@ -27,10 +27,13 @@
       </div>
     </l-nav-bar>
 
-    <div
-      class="top"
-      :style="{'background-image':`url(${model.banner}})`}"
-    >
+    <div class="top">
+      <!-- 
+      :style="{'background-image':`url(${model.banner}})`}" -->
+      <img
+        :src="model.banner"
+        alt=""
+      >
       <div class="info text-white p-3 h-100 d-flex flex-column jc-end">
         <div class="fs-sm">{{model.title}}</div>
         <h2 class="my-2">{{model.name}}</h2>
@@ -59,6 +62,71 @@
         </div>
       </div>
     </div>
+    <!-- end of top -->
+
+    <div>
+      <div class="bg-white px-3">
+        <l-tab-control
+          ref="tabControl"
+          color="#db9e3f"
+          :tabControlsOption="tabControlsOption"
+          class="pb-2 border-bottom"
+        />
+        <router-view />
+      </div>
+      <swiper>
+        <swiper-slide>
+          <div>
+            <div class="p-3 bg-white border-bottom">
+              <div class="d-flex">
+                <router-link
+                  tag="button"
+                  to="/"
+                  class="btn flex-1 ml-2 fs-sm bg-white-1 d-flex ai-center jc-center"
+                >
+                  <i class="moba ico-video text-primary"></i>
+                  英雄介绍视频
+                </router-link>
+
+                <router-link
+                  tag="button"
+                  to="/"
+                  class="btn flex-1 ml-2 fs-sm bg-white-1 d-flex ai-center jc-center"
+                >
+                  <i class="moba ico-picture text-primary"></i>
+                  一图识英雄
+                </router-link>
+              </div>
+
+              <!-- skills -->
+              <div class="skills mt-4">
+                <div class="d-flex jc-around">
+                  <img
+                    class="icon"
+                    @click="currentSkillIndex = index"
+                    :class="{active:currentSkillIndex === index}"
+                    :src="item.icon"
+                    alt=""
+                    v-for="(item,index) in model.skills"
+                    :key="index"
+                  >
+                </div>
+                <div v-if="currentSkill">
+                  <div class="d-flex pt-4 pb-3">
+                    <h3>{{currentSkill.name}}</h3>
+                    <span class="text-grey-1 ml-4">（冷却值：{{currentSkill.coolDown}}消耗:{{currentSkill.cost}}）</span>
+                  </div>
+                  <p class="pb-2">{{currentSkill.description}}</p>
+                  <div class="border-bottom"></div>
+                  <p class="pt-2">小提示：{{currentSkill.tips}}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </swiper-slide>
+      </swiper>
+    </div>
   </div>
 </template>
 
@@ -67,8 +135,17 @@ export default {
   name: 'index',
   data() {
     return {
-      model: null
+      model: null,
+      tabControlsOption: {
+        tabList: ['英雄初识', '进阶攻略'],
+      },
+      currentSkillIndex: 0,
     };
+  },
+  computed: {
+    currentSkill() {
+      return this.model.skills[this.currentSkillIndex]
+    },
   },
   props: {
     id: {
@@ -103,11 +180,17 @@ export default {
 
 .top {
   height: 50vw;
-  background: red no-repeat top center;
+  background: #fff no-repeat top center;
   background-size: auto 100%;
+  img {
+    position: absolute;
+    height: 50vw;
+    background-size: auto 100%;
+  }
 
   .info {
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    position: relative;
     .scores {
       .badge {
         margin: 0 0.25rem;
@@ -120,6 +203,33 @@ export default {
         font-size: 0.6rem;
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
+    }
+  }
+}
+
+.btn {
+  border: none;
+  border-radius: 0.1538rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid #eceef0;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+
+  i {
+    font-size: 1.6rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.skills {
+  img.icon {
+    border: 3px solid #fff;
+    width: 65px;
+    height: 65px;
+    &.active {
+      border-color: #db9e3f;
+      border-radius: 50%;
     }
   }
 }

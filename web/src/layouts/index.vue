@@ -29,7 +29,7 @@
       ref="tabControl"
       color="#fff"
       :tabControlsOption="tabControlsOption"
-      class="tab-control bg-primary pb-2 text-white"
+      class="bg-primary pb-2 text-white"
     />
     <router-view />
   </div>
@@ -75,9 +75,5 @@ export default {
   .right {
     width: 180px;
   }
-}
-
-.tab-control {
-  justify-content: space-around;
 }
 </style>

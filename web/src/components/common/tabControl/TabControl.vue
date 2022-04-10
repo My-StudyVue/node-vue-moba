@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .tab-control {
+  justify-content: space-around;
   .tab-control-item {
     border: 3px solid transparent;
     padding-bottom: 0.2rem;

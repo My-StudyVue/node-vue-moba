@@ -1,7 +1,10 @@
 <template>
   <div v-if="model">
     <div class="d-flex p-2 border-bottom">
-      <div class="moba ico-back text-blue" />
+      <div
+        class="moba ico-back text-blue"
+        @click="$router.back()"
+      />
       <strong class="flex-1 text-blue pl-2">
         {{model.title}}
       </strong>

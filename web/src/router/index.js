@@ -22,6 +22,12 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/hero/:id',
+    name: 'hero',
+    component: () => import(/* webpackChunkName: "about" */ '@/pages/hero/index.vue'),
+    props: true,
+  },
 ]
 
 const router = new VueRouter({

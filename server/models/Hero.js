@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema({
   name: { type: String, unique: true },
   avatar: { type: String },
+  banner: { type: String },
   title: { type: String },
   //  做关联类型一定是 mongoose.SchemaTypes.ObjectId
   // category: { type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }, // 这样写表示分类只有一个
@@ -18,6 +19,8 @@ const schema = new mongoose.Schema({
     {
       icon: { type: String },
       name: { type: String },
+      coolDown: { type: String },
+      cost: { type: String },
       description: { type: String },
       tips: { type: String },
     }

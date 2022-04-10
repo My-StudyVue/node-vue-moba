@@ -5,8 +5,14 @@
       label-width="120px"
       @submit.native.prevent="save"
     >
-      <el-tabs type="border-card">
-        <el-tab-pane label="基础信息">
+      <el-tabs
+        type="border-card"
+        value="basic"
+      >
+        <el-tab-pane
+          label="基础信息"
+          name="basic"
+        >
           <el-card class="box-card">
             <el-divider content-position="left">个人信息</el-divider>
 
@@ -24,12 +30,32 @@
                 :action="uploadUrl"
                 :headers="getAuthHeaders"
                 :show-file-list="false"
-                :on-success="afterUpload"
+                :on-success="res => $set(model,'avatar',res.url)"
               >
                 <img
                   v-if="model.avatar"
                   :src="model.avatar"
                   class="avatar"
+                />
+                <i
+                  v-else
+                  class="el-icon-plus avatar-uploader-icon"
+                ></i>
+              </el-upload>
+            </el-form-item>
+
+            <el-form-item label="Banner">
+              <el-upload
+                class="avatar-uploader"
+                :action="uploadUrl"
+                :headers="getAuthHeaders"
+                :show-file-list="false"
+                :on-success="res => $set(model,'banner',res.url)"
+              >
+                <img
+                  v-if="model.banner"
+                  :src="model.banner"
+                  class="banner"
                 />
                 <i
                   v-else
@@ -155,6 +181,66 @@
           </el-card>
         </el-tab-pane>
 
+        <el-tab-pane
+          label="英雄关系"
+          name="partners"
+        >
+
+          <el-card class="box-card">
+            <el-divider content-position="left">最佳搭档</el-divider>
+            <el-button
+              size="small"
+              @click="model.partners.push({})"
+            >
+              <i class="el-icon-plus" /> 添加英雄
+            </el-button>
+            <el-row
+              type="flex"
+              style="flex-wrap: wrap;margin-top: 1rem"
+            >
+              <el-col
+                :md="12"
+                v-for="(item, index) in model.partners"
+                :key="index"
+              >
+                <el-card class="box-card">
+                  <el-form-item label="英雄">
+                    <el-select
+                      v-model="item.hero"
+                      filterable
+                    >
+                      <el-option
+                        v-for="hero in heroes"
+                        :key="hero._id"
+                        :value="hero._id"
+                        :label="hero.name"
+                      ></el-option>
+                    </el-select>
+                  </el-form-item>
+
+                  <el-form-item
+                    label="描述"
+                    style="margin-top:0.5rem"
+                  >
+                    <el-input
+                      v-model="item.description"
+                      type="textarea"
+                    ></el-input>
+                  </el-form-item>
+
+                  <el-form-item>
+                    <el-button
+                      size="small"
+                      type="danger"
+                      @click="model.partners.splice(index, 1)"
+                    >删除</el-button>
+                  </el-form-item>
+                </el-card>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-tab-pane>
+
         <el-tab-pane label="技能">
           <el-button
             size="small"
@@ -197,6 +283,14 @@
                       class="el-icon-plus avatar-uploader-icon"
                     ></i>
                   </el-upload>
+                </el-form-item>
+
+                <el-form-item label="冷却值">
+                  <el-input v-model="item.coolDown"></el-input>
+                </el-form-item>
+
+                <el-form-item label="消耗">
+                  <el-input v-model="item.cost"></el-input>
                 </el-form-item>
 
                 <el-form-item
@@ -261,10 +355,12 @@ export default {
           attack: 0,
           survive: 0,
         },
+        partners: [],
         skills: [],
       }, //普通写法
       categories: [],
       items: [],
+      heroes: [],
     }
   },
   props: {
@@ -274,6 +370,7 @@ export default {
     this.id && this.fetch()
     this.fetchCategories()
     this.fetchItems()
+    this.fetchHeroes()
   },
   methods: {
     async save() {
@@ -309,6 +406,10 @@ export default {
       const res = await this.$http.get(`rest/item`)
       this.items = res.data
     },
+    async fetchHeroes() {
+      const res = await this.$http.get(`rest/heroes`)
+      this.heroes = res.data
+    },
     afterUpload(res) {
       // this.$set(this.model, 'avatar', res.url)
       this.model.avatar = res.url //普通写法
@@ -341,6 +442,10 @@ export default {
 }
 .avatar {
   width: 5rem;
+  height: 5rem;
+  display: block;
+}
+.banner {
   height: 5rem;
   display: block;
 }

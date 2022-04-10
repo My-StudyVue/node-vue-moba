@@ -82,7 +82,9 @@
           class="d-flex flex-wrap"
           style="margin:0 -0.5rem"
         >
-          <div
+          <router-link
+            tag="div"
+            :to="`/hero/${heroItem._id}`"
             v-for="(heroItem,index) in swiperItem"
             :key="index"
             class="p-2 text-center"
@@ -94,7 +96,7 @@
               alt=""
             >
             <div>{{heroItem.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </l-card>

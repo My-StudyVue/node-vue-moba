@@ -1065,6 +1065,41 @@ $$('.hero-nav > li').map((li,i) => {
 
 ### 1.生产环境编译
 
+#### 全局安装serve
+
+```sh
+$ npm i -g serve
+```
+
+#### 客户端运行打包文件(打包名字叫dist)
+
+```sh
+$ serve dist
+```
+
+ #### 客户端建立开发环境
+
+##### baseURL更换成环境变量
+
+```js
+const http = axios.create({
+  baseURL: process.env.VUE_APP_API_URL || '/admin/api',
+  // baseURL: 'http://localhost:3000/admin/api',
+  //$http.defaults.baseUrl defaults 表示默认参数
+  timeout: 5000
+})
+```
+
+##### 在客户端 根目录下新建 .env.development 文件
+
+```
+VUE_APP_API_URL=http://localhost:3000/admin/api
+```
+
+#### 把客户端dist 文件复制给后端根目录下，改名为admin
+
+##### 后端上传打包（静态文件托管）
+
 ### 2.购买域名和服务器
 
 ### 3.域名解析

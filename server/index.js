@@ -16,6 +16,11 @@ app.use(require('cors')())
  */
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
+/**
+ * 前端打包文件上传
+ */
+app.use('/admin', express.static(__dirname + '/admin'))
+
 // 引用数据库
 require('./plugins/db')(app)
 

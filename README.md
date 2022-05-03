@@ -1100,6 +1100,44 @@ VUE_APP_API_URL=http://localhost:3000/admin/api
 
 ##### 后端上传打包（静态文件托管）
 
+##### 在admin文件中新增
+
+```js
+app.use('/admin', express.static(__dirname + '/admin'))
+```
+
+#### 处理报错
+
+>因为打包后的html引入的都是根（“/”）
+
+##### 在admin文件中修改
+
+```js
+app.use('/', express.static(__dirname + '/admin'))
+```
+
+#### 静态文件加上文件夹路径
+
+##### 在客户端 vu e.config.js新增
+
+```js
+module.exports = {
+  .......
+  // outputDir 指生成的的目录名
+  outputDir: __dirname + '/../server/admin',
+  // publicPath 指生成的静态文件路径
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/admin/'
+    : '/'
+};
+```
+
+##### 在admin文件中修改
+
+```js
+app.use('/admin', express.static(__dirname + '/admin'))
+```
+
 ### 2.购买域名和服务器
 
 ### 3.域名解析

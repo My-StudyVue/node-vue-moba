@@ -3,7 +3,8 @@ import Vue from 'vue'
 import router from '../router'
 
 const http = axios.create({
-  baseURL: 'http://localhost:3000/web/api',
+  baseURL: process.env.VUE_APP_API_URL || '/web/api',
+  // baseURL: 'http://localhost:3000/web/api',
   //$http.defaults.baseUrl defaults 表示默认参数
   timeout: 5000
 })

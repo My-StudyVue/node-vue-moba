@@ -125,7 +125,6 @@ module.exports = (app, express) => {
      */
     for (let cat of rawData) {
       // 录入分类
-      console.log(cat.categoryName, { name: cat.categoryName }, '45');
       let categoryList = []
       categoryList.push({
         parent: {

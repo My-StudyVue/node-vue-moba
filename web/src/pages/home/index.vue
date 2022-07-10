@@ -49,7 +49,7 @@
       :curIndex="curIndexNews"
       :headerLeft="headerLeftNews"
       :headerRight="headerRight"
-      ref="tabCard"
+      ref="tabCardNews"
     >
       <template #items="{swiperItem}">
         <router-link
@@ -75,7 +75,7 @@
       :curIndex="curIndexHero"
       :headerLeft="headerLeftHero"
       :headerRight="headerRight"
-      ref="tabCard"
+      ref="tabCardHero"
     >
       <template #items="{swiperItem}">
         <div
@@ -167,10 +167,12 @@ export default {
     ...config.methods,
 
     async fetchNewsCats() {
+      // const res = await this.$http.get("/news/init")
       const res = await this.$http.get("/news/list")
       this.newsList = res.data
     },
     async fetchHeroCats() {
+      // const res = await this.$http.get("/heroes/init")
       const res = await this.$http.get("/heroes/list")
       this.heroList = res.data
     },

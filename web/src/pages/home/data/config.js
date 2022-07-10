@@ -76,11 +76,11 @@ const config = {
   methods: {
     tabClickNews(index) {
       this.curIndexNews = index
-      this.$refs.tabCard.slideTo(index)
+      this.$refs.tabCardNews.slideTo(index)
     },
     tabClickHero(index) {
       this.curIndexHero = index
-      this.$refs.tabCard.slideTo(index)
+      this.$refs.tabCardHero.slideTo(index)
     },
     packUp() {
       if (!this.isPack) {

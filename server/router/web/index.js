@@ -124,6 +124,18 @@ module.exports = (app, express) => {
      * continue --用return true; 
      */
     for (let cat of rawData) {
+      // 录入分类
+      console.log(cat.categoryName, { name: cat.categoryName }, '45');
+      let categoryList = []
+      categoryList.push({
+        parent: {
+          "_id": "62caa7e33750ff42a40c50cd",
+          "name": "英雄分类",
+          "__v": 0
+        }, name: cat.categoryName
+      })
+      await Category.insertMany(categoryList)
+
       if (cat.categoryName === '热门') {
         continue
         // continue跳过这个循环  不需要执行后面的代码
